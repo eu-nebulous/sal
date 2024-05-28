@@ -46,7 +46,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 30
         - name: sal
-          image: activeeon/sal:dev
+          image: activeeon/sal:release1
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
