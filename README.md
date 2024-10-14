@@ -5,12 +5,12 @@ SAL Code repository and documentation can be found [here](https://github.com/ow2
 To use SAL it is manadtory to have the Execution Adapter (ProActive) installed: [here](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler). 
 
 # Report Issue
-In a case of issue, please create the bug error report [here](https://github.com/eu-nebulous/sal/issues).
+In a case of issue, please create the bug error report [here](https://github.com/eu-nebulous/sal/issues). 
 When reporting issue, for faster resolution of your problem, please include:
-- the description of the scenario e.g. sequence diagrams which were executed
+- the description of the scenario e.g. Nebulous sequence diagrams which were executed
 - date and time, SAL and ProActive environment
-- SAL logs (especially ones inside of SAL container)
-- ProActive logs i.e. connector-iaas.log
+- SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container)
+- ProActive [logs](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#how-to-check-the-logs-of-proactive) i.e. `connector-iaas.log`
 - ProActive job id (in a case of error during the ProActive workflow execution)
 - detailed description of the action during which it happened 
 
@@ -25,9 +25,13 @@ NebulOuS SAL original deployment script can be found at https://github.com/ow2-p
 Please bare in mind that the values in the helm chart can be overwritten in the nrec deployment definition:
 https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-cd/helm-releases/specific-patches/nebulous-sal.yaml
 
-# Scenarios of using SAL and ProACtive (Deployment Manager & Execution Adapter)
+# Deployment Manager & Execution Adapter Nebulous scenario
 
 ### Prerequisites
+SAL need to be connected to the ProActive. If you are getting the `HTTP 500` error when calling the endpoints, which state NotConnectedException, it means that SAL is not connected to ProActive. 
+This also can be seen in SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container).
+
+- [Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
 
 ### Cloud registration
 
@@ -41,9 +45,9 @@ https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebul
 
 ### Reconfiguration
 
-## Scaling Out the application
+#### Scaling Out the application
 
-## Scaling In the application
+#### Scaling In the application
 
 ### Edge device deregistration (TBD)
 
