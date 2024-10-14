@@ -25,7 +25,9 @@ NebulOuS SAL original deployment script can be found at https://github.com/ow2-p
 Please bare in mind that the values in the helm chart can be overwritten in the nrec deployment definition:
 https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-cd/helm-releases/specific-patches/nebulous-sal.yaml
 
-# Deployment Manager & Execution Adapter Nebulous scenario
+# Deployment Manager & Execution Adapter NebulOus scenario
+This section describes the sequence of the SAL endpoints provided to support NebulOuS deployment and execution scenario.
+It is possible to find more regarding how to use SAL endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
 ### Prerequisites
 SAL need to be connected to the ProActive. If you are getting the `HTTP 500` error when calling the endpoints, which state NotConnectedException, it means that SAL is not connected to ProActive. 
@@ -34,6 +36,7 @@ This also can be seen in SAL [logs](https://github.com/ow2-proactive/scheduling-
 - [Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
 
 ### Cloud registration
+
 
 ### Edge device registration
 
