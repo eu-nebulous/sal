@@ -37,8 +37,9 @@ This section describes the sequence of the SAL endpoints provided to support Neb
 It is possible to find more regarding how to use SAL endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
 ### Prerequisites
-SAL need to be connected to the ProActive. If you are getting the `HTTP 500` error when calling the endpoints, which state NotConnectedException, it means that SAL is not connected to ProActive. 
+SAL need to be connected to the [ProActive] (https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler). If you are getting the `HTTP 500` error when calling the endpoints, which state NotConnectedException, it means that SAL is not connected to ProActive. 
 This also can be seen in SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container).
+If you experience this make sure that ProActive is [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details) properly.
 
 - [Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
 
