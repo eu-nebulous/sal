@@ -38,9 +38,9 @@ It is possible to find more regarding how to use SAL endpoints [here](https://gi
 ### Prerequisites
 To use SAL it is manadtory to have the Execution Adapter (ProActive) [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details) properly.
 In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resources/deployment.yaml) it is necessary to set 
-- <PROACTIVE_URL> 
-- <USERNAME>
-- <PASSWORD>
+- `<PROACTIVE_URL>`
+- `<USERNAME>`
+- `<PASSWORD>`
 More regarding setting up SAL Kubernetes deployment script can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod) and regarding using the endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
 - [Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
