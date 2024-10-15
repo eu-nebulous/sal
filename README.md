@@ -121,7 +121,7 @@ Example of Searching for Node Candidates in an OpenStack Cloud:
 ]
 ```
 
-Example of Searching for a Node Candidate Representing an EDGE Device:
+Example of Searching for a Node Candidate Representing an `EDGE` Device:
 ```json
 [
     {
@@ -130,7 +130,7 @@ Example of Searching for a Node Candidate Representing an EDGE Device:
     }
 ]
 ```
-Note that for the EDGE devices, their node candidate ID is returned during registration. In a case you target a specific edge device it is to store it during the registration process, or to introduce the unique identifiyer into device name which can be search then using attribute requirement `name` in `hardware` class. 
+Note that for the `EDGE` devices, their node candidate ID is returned during registration. In a case you target a specific edge device it is to store it during the registration process, or to introduce the unique identifiyer into device name which can be search then using attribute requirement `name` in `hardware` class. 
 
 ### 5. Cluster deployment
 
@@ -139,9 +139,18 @@ This endpoint is used to define and configure Kubernetes cluster deployments. Wh
 
 Ensure that cloud or edge nodes are both added and selected to enable successful deployment and execution.
 
-#####  5.2. []()
+#####  5.2. [DeployCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#102--deploycluster-endpoint) - Deploying a Kubernetes Cluster.
+This endpoint initializes the cluster deployment process. Once started, you can monitor the progress of the deployment.
 
-#####  5.3. []()
+If the deployment fails (i.e., the SAL does not return `true`), consult the SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container) and ProActive [logs](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#how-to-check-the-logs-of-proactive) i.e. `connector-iaas.log`.
+
+If the deployment succeeds and returns `true`, you can track the ongoing progress and troubleshoot any issues using the Execution Adapter interface. Monitoring tools include:
+- The ProActive dashboard for an overview of the entire deployment,
+- The ProActive Scheduler for details on individual task execution, and
+- The ProActive Resource Manager to monitor resource utilization.
+
+#####  5.3. [GetCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#103--getcluster-endpoint) - Retrieving Cluster Deployment Status. 
+This endpoint provides detailed information on the current status of the Kubernetes cluster deployment.
 
 ### 6. Initial application deployment
 
