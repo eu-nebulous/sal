@@ -36,27 +36,34 @@ This section describes the sequence of the SAL endpoints provided to support Neb
 It is possible to find more regarding how to use SAL endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
 ### 1. Prerequisites
-To use SAL it is manadtory to have the Execution Adapter (ProActive) [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details) properly.
-In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resources/deployment.yaml) it is necessary to set 
+To use SAL, it is mandatory to have the Execution Adapter (ProActive) [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [properly configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details).
+In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resources/deployment.yaml), it is necessary only to set 
 - `<PROACTIVE_URL>`
 - `<USERNAME>`
 - `<PASSWORD>`
 
-More regarding setting up SAL Kubernetes deployment script can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod) and regarding using the endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
+Rest is configured automatically for Nebulous (see [Nebulous SAL deployment]().
+For more information on setting up the SAL Kubernetes deployment script, see [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod). Details about using the endpoints are available [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
-#####  1.1.[Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
-SAL need to be connected to the ProActive to use any of the endpoints. If you are getting the `HTTP 500` error when calling the endpoints, which state NotConnectedException, it means that SAL is not connected to ProActive. This also can be seen in SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container).
-Note that it is possible that the connection to ProActive is lost during the scenario execution, and need to be reestablished.
+#####  1.1. [Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
+SAL must be connected to ProActive to use any of the endpoints. If you encounter an `HTTP 500` when calling endpoints, which reports a `NotConnectedException`, it indicates that SAL is not connected to ProActive. You can verify this in the SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (particularly those within the container).
+Keep in mind that the connection to ProActive may be lost during scenario execution and may need to be reestablished.
 
-### Cloud registration
-#####  2.1.[Add cloud endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Define a cloud infrastructure
-To use this call is necessary to set up unique `cloud_name` which was not already registered. Note that during SAL restart the cloud is erased from SAL database but not from the Execution Adapter. By using the same name as one which was already registered will result in infrastructure not being updated with a new information. 
-More regarding setting up cloud providers for Nebulous can be found [here](https://github.com/eu-nebulous/nebulous/wiki/2.1-Managing-cloud-providers).
-#####  2.2.[isAnyAsyncNodeCandidatesProcessesInProgress endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md)
+### 2. Cloud registration
+#####  2.1. [Add cloud endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Defining a cloud infrastructure.
+To use this endpoint, you must specify a unique `cloud_name` hat has not already been registered. Note that, after a SAL restart, cloud information is erased from the SAL database but not from the Execution Adapter. If you use a name that has already been registered, the infrastructure will not be updated with new information. For more information on setting up cloud providers for Nebulous, see [here](https://github.com/eu-nebulous/nebulous/wiki/2.1-Managing-cloud-providers).
 
-### Edge device registration
+Additionally, while the infrastructure may be registered, this does not guarantee the correctness of the configured cloud infrastructure. Only after registration will an asynchronous process to retrieve images and node candidates begin, provided authentication is used (refer to 2.2. and 2.3. for validation). Furthermore, the SSH credentials are only used during cluster deployment (see 5.2).
 
-### Filtering of node candidates
+#####  2.2. [isAnyAsyncNodeCandidatesProcessesInProgress endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Checking for ongoing asynchronous processes for retrieving cloud images or node candidates.
+You should wait until this process returns `false`, indicating that the retrieval of cloud images and node candidates from the cloud provider is complete.
+
+#####  2.3. [GetCloudImages endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md#24--getcloudimages-endpoint) - Retrieving cloud images. 
+This endpoint can be used to verify that the cloud images and authentication settings are correct. If there is a problem with authentication, the endpoint will return an error. For issues related to incorrect credentials or insufficient permissions, consult the Execution Adapter logs. If an image retrieval problem occurs, the image will not be returned by this endpoint.
+
+### 3. Edge device registration
+
+### 4. Filtering of node candidates
 
 ### Cluster deployment
 
