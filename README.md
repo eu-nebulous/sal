@@ -23,7 +23,10 @@ NebulOuS SAL is deployed with a chart managed at https://github.com/eu-nebulous/
 NebulOuS SAL original deployment script can be found at https://github.com/ow2-proactive/scheduling-abstraction-layer/tree/master/deployment
 
 Please bare in mind that the values in the helm chart can be overwritten in the nrec deployment definition:
-https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-cd/helm-releases/specific-patches/nebulous-sal.yaml
+cd environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-cd/helm-releases/specific-patches/nebulous-sal.yaml
+prod environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-prod/helm-releases/specific-patches/nebulous-sal.yaml
+test environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-test/helm-releases/specific-patches/nebulous-sal.yaml
+dev environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-dev/helm-releases/specific-patches/nebulous-sal.yaml
 
 # Deployment Manager & Execution Adapter NebulOus scenario
 This section describes the sequence of the SAL endpoints provided to support NebulOuS deployment and execution scenario.
