@@ -22,14 +22,15 @@ This section describes the sequence of the SAL endpoints provided to support Neb
 It is possible to find more regarding how to use SAL endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
 ### 1. Prerequisites
-To use SAL, it is mandatory to have the Execution Adapter (ProActive) [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [properly configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details).
+To use SAL, you must have the Execution Adapter (ProActive) [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [properly configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details).
 In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resources/deployment.yaml), it is necessary only to set 
 - `<PROACTIVE_URL>`
 - `<USERNAME>`
 - `<PASSWORD>`
 
-Rest is configured automatically for Nebulous (see [Nebulous SAL deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls).
-For more information on setting up the SAL Kubernetes deployment script, see [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod). Details about using the endpoints are available [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
+The rest of the configuration is automatically handled by Nebulous (see [Nebulous SAL deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls) for more details).
+
+For additional information on setting up the SAL Kubernetes deployment script, refer to [this guide](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod). You can find details on using the endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
 #####  1.1. [Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
 SAL must be connected to ProActive to use any of the endpoints. If you encounter an `HTTP 500` when calling endpoints, which reports a `NotConnectedException`, it indicates that SAL is not connected to ProActive. You can verify this in the SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (particularly those within the container).
@@ -56,6 +57,80 @@ This endpoint is used to register a new edge device. It returns the defined edge
 This endpoint retrieves all registered edge devices, providing all information initially returned during the device registration process.
 
 ### 4. Filtering of node candidates
+
+#####  4.1. [findNodeCandidates endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/7-node-endpoints.md#71--findnodecandidates-endpoint) -  Filtering Node Candidates Based on Deployment Requirements.
+This endpoint allows you to filter node candidates using various criteria to select suitable nodes for deployment. Specify the required conditions for master or worker nodes within the cluster and store the retrieved node candidate IDs for future use.
+
+In Nebulous, there are only two node types:`IAAS` for the cloud nodes, and `EDGE` for nodes representing edge devices. 
+
+Example of Searching for Node Candidates in an OpenStack Cloud:
+- Node Type: IAAS (cloud node)
+- Cloud ID: Matches a specific cloud (use {{cloud_name}} to reference)
+- Operating System: Ubuntu, version 22
+- Region: bgo
+- Hardware Specifications: 8GB RAM and 4 CPU cores
+- 
+```json
+[
+    {
+        "type": "NodeTypeRequirement",
+        "nodeTypes": ["IAAS"]
+    },
+    {
+        "type": "AttributeRequirement",
+        "requirementClass": "cloud",
+        "requirementAttribute": "id",
+        "requirementOperator": "EQ",
+        "value": "{{cloud_name}}"
+    },
+    {
+        "type": "AttributeRequirement",
+        "requirementClass": "image",
+        "requirementAttribute": "operatingSystem.family",
+        "requirementOperator": "IN",
+        "value": "UBUNTU"
+    },
+    {
+        "type": "AttributeRequirement",
+        "requirementClass": "image",
+        "requirementAttribute": "name",
+        "requirementOperator": "INC",
+        "value": "22"
+    },
+    {
+        "type": "AttributeRequirement",
+        "requirementClass": "location",
+        "requirementAttribute": "name",
+        "requirementOperator": "EQ",
+        "value": "bgo"
+    },
+    {
+        "type": "AttributeRequirement",
+        "requirementClass": "hardware",
+        "requirementAttribute": "ram",
+        "requirementOperator": "EQ",
+        "value": "8192"
+    },
+    {
+        "type": "AttributeRequirement",
+        "requirementClass": "hardware",
+        "requirementAttribute": "cores",
+        "requirementOperator": "EQ",
+        "value": "4"
+    }
+]
+```
+
+Example of Searching for a Node Candidate Representing an EDGE Device:
+```json
+[
+    {
+        "type": "NodeTypeRequirement",
+        "nodeTypes": ["EDGE"]
+    }
+]
+```
+
 
 ### Cluster deployment
 
