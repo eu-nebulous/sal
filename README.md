@@ -69,7 +69,7 @@ Example of Searching for Node Candidates in an OpenStack Cloud:
 - Operating System: Ubuntu, version 22
 - Region: bgo
 - Hardware Specifications: 8GB RAM and 4 CPU cores
-- 
+  
 ```json
 [
     {
@@ -130,21 +130,42 @@ Example of Searching for a Node Candidate Representing an EDGE Device:
     }
 ]
 ```
+Note that for the EDGE devices, their node candidate ID is returned during registration. In a case you target a specific edge device it is to store it during the registration process, or to introduce the unique identifiyer into device name which can be search then using attribute requirement `name` in `hardware` class. 
 
+### 5. Cluster deployment
 
-### Cluster deployment
+#####  5.1. [DefineCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#101--definecluster-endpoint) - Defining Kubernetes cluster.
+This endpoint is used to define and configure Kubernetes cluster deployments. When setting up a Kubernetes cluster using this endpoint, [scripts](https://github.com/eu-nebulous/sal-scripts) maintained by Nebulous developers are used, which streamline the deployment process by installing essential software components within the cluster. The script templates provided by SAL can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/tree/master/docker/scripts). Required [environmental variables](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/env-variables-for-nebulous-application-deployment-scripts) and their corresponding values should be included in the cluster definition and are maintained for Nebulous development by the owner of component which is using the respective environmental variable. 
 
-### Initial application deployment
+Ensure that cloud or edge nodes are both added and selected to enable successful deployment and execution.
 
-### Reconfiguration
+#####  5.2. []()
 
-#### Scaling Out the application
+#####  5.3. []()
 
-#### Scaling In the application
+### 6. Initial application deployment
 
-### Edge device deregistration (TBD)
+#####  6.1. []()
 
-### Cloud deregistration (TBD)
+### 7 Reconfiguration
+
+#####  7.1. []()
+
+#####  7.2. []()
+
+#####  7.3. []()
+
+#### 7.1. Scaling Out the application
+
+#### 7.2. Scaling In the application
+
+### 8. Edge device deregistration (TBD)
+
+#####  8.1. []()
+
+### 9. Cloud deregistration (TBD)
+
+#####  9.1. []()
 
 
 # NebulOuS SAL Deployment (managed by 7Bulls)
