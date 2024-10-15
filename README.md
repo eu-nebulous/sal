@@ -1,5 +1,5 @@
 # Introduction
-Deployment Manager, i.e. Scheduling Abstraction Layer (SAL) is an abstraction layer initially developed as part of the EU project Morphemic. Its development continued through the Nubulous EU project. SAL aims to enhance the usability of Execution adapter, i.e. ProActive Scheduler & Resource Manager, by providing abstraction, making it easier for users to interact with the scheduler and take advantage of its features. Seamlessly supporting REST calls and direct communication with the Execution Adapter SAL empowers users to harness the scheduler's capabilities. 
+Deployment Manager, i.e. Scheduling Abstraction Layer (SAL) is an abstraction layer initially developed as part of the EU project Morphemic by [Activeeon](https://www.activeeon.com/). Its development continued through the Nubulous EU project. SAL aims to enhance the usability of Execution adapter, i.e. [ProActive Scheduler & Resource Manager](https://doc.activeeon.com/latest/), by providing abstraction, making it easier for users to interact with the scheduler and take advantage of its features. Seamlessly supporting REST calls and direct communication with the Execution Adapter SAL empowers users to harness the scheduler's capabilities. 
 
 SAL Code repository and documentation can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md).
 
@@ -35,7 +35,7 @@ dev environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clust
 This section describes the sequence of the SAL endpoints provided to support NebulOuS deployment and execution scenario.
 It is possible to find more regarding how to use SAL endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
-### Prerequisites
+### 1. Prerequisites
 To use SAL it is manadtory to have the Execution Adapter (ProActive) [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details) properly.
 In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resources/deployment.yaml) it is necessary to set 
 - `<PROACTIVE_URL>`
@@ -43,7 +43,10 @@ In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resou
 - `<PASSWORD>`
 More regarding setting up SAL Kubernetes deployment script can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod) and regarding using the endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
-- [Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
+SAL need to be connected to the ProActive to use any of the endpoints. If you are getting the `HTTP 500` error when calling the endpoints, which state NotConnectedException, it means that SAL is not connected to ProActive. This also can be seen in SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container).
+Note that it is possible that the connection to ProActive is lost during the scenario execution, and need to be reestablished.
+
+#####  1.1.[Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
 
 ### Cloud registration
 
