@@ -41,15 +41,18 @@ In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resou
 - `<PROACTIVE_URL>`
 - `<USERNAME>`
 - `<PASSWORD>`
+
 More regarding setting up SAL Kubernetes deployment script can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod) and regarding using the endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
+#####  1.1.[Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
 SAL need to be connected to the ProActive to use any of the endpoints. If you are getting the `HTTP 500` error when calling the endpoints, which state NotConnectedException, it means that SAL is not connected to ProActive. This also can be seen in SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container).
 Note that it is possible that the connection to ProActive is lost during the scenario execution, and need to be reestablished.
 
-#####  1.1.[Connect endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md#11--connect-endpoint) - Establishing the connection to ProActive server. 
-
 ### Cloud registration
-
+#####  2.1.[Add cloud endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Define a cloud infrastructure
+To use this call is necessary to set up unique `cloud_name` which was not already registered. Note that during SAL restart the cloud is erased from SAL database but not from the Execution Adapter. By using the same name as one which was already registered will result in infrastructure not being updated with a new information. 
+More regarding setting up cloud providers for Nebulous can be found [here](https://github.com/eu-nebulous/nebulous/wiki/2.1-Managing-cloud-providers).
+#####  2.2.[isAnyAsyncNodeCandidatesProcessesInProgress endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md)
 
 ### Edge device registration
 
