@@ -164,10 +164,10 @@ This endpoint is used to deploy and manage applications within a specified Kuber
 #####  7.1. [ScaleOut endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#106--scaleout-endpoint) - Scaling out the Cluster.
 This endpoint enables dynamic expansion of the Kubernetes cluster by adding additional worker nodes as needed. Use this endpoint to increase the cluster's processing capacity and accommodate higher workloads by scaling out with new resources.
 
-#####  7.2. [ScaleIn endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#107--scalein-endpoint)
+#####  7.2. [ScaleIn endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#107--scalein-endpoint) - Scaling In the Cluster
 This endpoint allows you to scale in the Kubernetes cluster by removing specified worker nodes. Use this endpoint to decrease the cluster's size, optimize resource usage, and reduce operational costs by deallocating unneeded nodes.
 
-#####  7.3. [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint)
+#####  7.3. [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint) - Managing Node Labels
 This endpoint allows you to manage node labels within a Kubernetes cluster, enabling you to add, modify, or remove labels on specific nodes. Use this feature to organize and categorize nodes effectively, which can aid in scheduling, resource management, and targeting specific nodes for workloads.
 
 #### 7.1. Scaling Out the application
@@ -191,11 +191,11 @@ To scale in an application, follow these steps:
 
 ### 8. Edge device deregistration (TBD)
 
-#####  8.1. []()
+#####  8.1. [DeleteEdgeNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#44--deleteedgenode-endpoint)
 
 ### 9. Cloud deregistration (TBD)
 
-#####  9.1. []()
+#####  9.1. [RemoveClouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md#27--removeclouds-endpoint)
 
 
 # NebulOuS SAL Deployment (managed by 7Bulls)
