@@ -1,3 +1,20 @@
+# Table of Contents
+
+- [Introduction](https://github.com/eu-nebulous/sal/blob/main/README.md#introduction)
+- [Report Issue](https://github.com/eu-nebulous/sal/blob/main/README.md#report-issue)
+- [NebulOuS Development](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-development)
+- [NebulOus scenario](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-scenario)
+	- [1. Prerequisites](https://github.com/eu-nebulous/sal/blob/main/README.md#1-prerequisites)
+	- [2. Cloud registration](https://github.com/eu-nebulous/sal/blob/main/README.md#2-cloud-registration)
+	- [3. Edge device registration](https://github.com/eu-nebulous/sal/blob/main/README.md#3-edge-device-registration)
+	- [4. Filtering of node candidates](https://github.com/eu-nebulous/sal/blob/main/README.md#4-filtering-of-node-candidates)
+	- [5. Cluster deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#5-cluster-deployment)
+	- [6. Application management](https://github.com/eu-nebulous/sal/blob/main/README.md#6-application-management)
+	- []()
+	- []()
+	- []()
+- []()
+
 # Introduction
 Deployment Manager, i.e. Scheduling Abstraction Layer (SAL) is an abstraction layer initially developed as part of the EU project Morphemic by [Activeeon](https://www.activeeon.com/). Its development continued through the Nubulous EU project. SAL aims to enhance the usability of Execution adapter, i.e. [ProActive Scheduler & Resource Manager](https://doc.activeeon.com/latest/), by providing abstraction, making it easier for users to interact with the scheduler and take advantage of its features. Seamlessly supporting REST calls and direct communication with the Execution Adapter SAL empowers users to harness the scheduler's capabilities. 
 
@@ -167,7 +184,7 @@ This endpoint enables the deletion of an existing Kubernetes cluster deployment.
 #####  6.1. [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint) - Managing application deployment.
 This endpoint is used to deploy and manage applications within a specified Kubernetes cluster. It supports both the initial deployment of applications and the reconfiguration of application replicas, allowing you to adjust the number of replicas as needed for scaling and performance optimization.
 
-### 7 Reconfiguration
+### 7. Cluster reconfiguration
 
 #####  7.1. [ScaleOut endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#106--scaleout-endpoint) - Scaling out the Cluster.
 This endpoint enables dynamic expansion of the Kubernetes cluster by adding additional worker nodes as needed. Use this endpoint to increase the cluster's processing capacity and accommodate higher workloads by scaling out with new resources.
