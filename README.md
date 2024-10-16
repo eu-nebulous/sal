@@ -17,9 +17,10 @@ When reporting issue, for faster resolution of your problem, please include:
 Note that there is additional documentation for Nebulous development is provided [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/deployment-manager-sal-1).
 For preset Nebulous environment for testing and development, you can find more information on how to access SAL [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/sal-in-nebulous-k8s), and regarding ProActive [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/proactive-in-nebulous-k8s) 
 
-# Deployment Manager & Execution Adapter NebulOus scenario
-This section describes the sequence of the SAL endpoints provided to support NebulOuS deployment and execution scenario.
-It is possible to find more regarding how to use SAL endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
+# NebulOus scenario 
+This section describes how the Deployment Manager and Execution Adapter support the Nebulous scenario. It outlines the sequence of SAL operations provided to facilitate NebulOuS deployment and execution. For more information on using SAL endpoints, refer to the [SAL Endpoint Documentation](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
+
+Developers can utilize the provided [Postman collection](https://github.com/eu-nebulous/sal/blob/main/resources/SAL%20for%20Nebulous.postman_collection.json) to get started with the endpoints or consult the previous [documentation](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/sal-postman-testing-scenario) for further details on the testing scenario.
 
 ### 1. Prerequisites
 To use SAL, you must have the Execution Adapter (ProActive) [installed](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler) and [properly configured](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#configure-proactive-scheduler-details).
