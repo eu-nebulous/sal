@@ -173,13 +173,21 @@ This endpoint allows you to manage node labels within a Kubernetes cluster, enab
 #### 7.1. Scaling Out the application
 To scale out an application, follow these steps:
 
-- Call the ScaleOut Endpoint: First, use the ScaleOut endpoint to add additional worker nodes to the existing Kubernetes cluster.
+- _Add New Worker Nodes_: First, use the [ScaleOut endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#106--scaleout-endpoint) to add additional worker nodes to the existing Kubernetes cluster.
 
-- Label the New Worker Nodes: Once the new worker nodes are successfully deployed within the cluster, apply appropriate labels to them using the LabelNode endpoint. Proper labeling is essential for organizing and targeting nodes for specific workloads.
+- _Label the New Worker Nodes_: Once the new worker nodes are successfully deployed within the cluster, apply appropriate labels to them using the [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint). Proper labeling is essential for organizing and targeting nodes for specific workloads.
 
-- Increase Application Replicas: Finally, to complete the scale-out process, adjust the number of application replicas by calling the ManageApplication endpoint. This will ensure the application takes advantage of the newly added worker nodes.
+- _Increase Application Replicas_: Finally, to complete the scale-out process, adjust the number of application replicas by calling the [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint). This will ensure the application takes advantage of the newly added worker nodes.
 
 #### 7.2. Scaling In the application
+7.2. Scaling In the Application
+To scale in an application, follow these steps:
+
+- _Label the Nodes for Removal_: First, use the [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint) to mark specific worker nodes as unavailable for new application replicas. This ensures that no new replicas are assigned to these nodes during the scaling process.
+
+- _Adjust Application Replicas_: Next, call the [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint) with a reduced number of replicas to gradually remove the application from the marked nodes.
+
+- _Remove Worker Nodes_: Finally, once the application replicas have been removed from the designated nodes, use the [ScaleIn endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#107--scalein-endpoint) to remove the worker nodes from the cluster, optimizing resource usage and reducing operational costs.
 
 ### 8. Edge device deregistration (TBD)
 
