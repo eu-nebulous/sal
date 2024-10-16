@@ -156,17 +156,28 @@ This endpoint provides detailed information on the current status of the Kuberne
 
 ### 6. Initial application deployment
 
-#####  6.1. []()
+#####  6.1. [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint) - Managing application deployment.
+This endpoint is used to deploy and manage applications within a specified Kubernetes cluster. It supports both the initial deployment of applications and the reconfiguration of application replicas, allowing you to adjust the number of replicas as needed for scaling and performance optimization.
 
 ### 7 Reconfiguration
 
-#####  7.1. []()
+#####  7.1. [ScaleOut endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#106--scaleout-endpoint) - Scaling out the Cluster.
+This endpoint enables dynamic expansion of the Kubernetes cluster by adding additional worker nodes as needed. Use this endpoint to increase the cluster's processing capacity and accommodate higher workloads by scaling out with new resources.
 
-#####  7.2. []()
+#####  7.2. [ScaleIn endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#107--scalein-endpoint)
+This endpoint allows you to scale in the Kubernetes cluster by removing specified worker nodes. Use this endpoint to decrease the cluster's size, optimize resource usage, and reduce operational costs by deallocating unneeded nodes.
 
-#####  7.3. []()
+#####  7.3. [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint)
+This endpoint allows you to manage node labels within a Kubernetes cluster, enabling you to add, modify, or remove labels on specific nodes. Use this feature to organize and categorize nodes effectively, which can aid in scheduling, resource management, and targeting specific nodes for workloads.
 
 #### 7.1. Scaling Out the application
+To scale out an application, follow these steps:
+
+- Call the ScaleOut Endpoint: First, use the ScaleOut endpoint to add additional worker nodes to the existing Kubernetes cluster.
+
+- Label the New Worker Nodes: Once the new worker nodes are successfully deployed within the cluster, apply appropriate labels to them using the LabelNode endpoint. Proper labeling is essential for organizing and targeting nodes for specific workloads.
+
+- Increase Application Replicas: Finally, to complete the scale-out process, adjust the number of application replicas by calling the ManageApplication endpoint. This will ensure the application takes advantage of the newly added worker nodes.
 
 #### 7.2. Scaling In the application
 
