@@ -1,5 +1,4 @@
 # Table of Contents
-
 - [Introduction](https://github.com/eu-nebulous/sal/blob/main/README.md#introduction)
 - [Report Issue](https://github.com/eu-nebulous/sal/blob/main/README.md#report-issue)
 - [NebulOuS Development](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-development)
@@ -10,10 +9,10 @@
 	- [4. Filtering of node candidates](https://github.com/eu-nebulous/sal/blob/main/README.md#4-filtering-of-node-candidates)
 	- [5. Cluster deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#5-cluster-deployment)
 	- [6. Application management](https://github.com/eu-nebulous/sal/blob/main/README.md#6-application-management)
-	- []()
-	- []()
-	- []()
-- []()
+	- [7. Cluster reconfiguration](https://github.com/eu-nebulous/sal/blob/main/README.md#7-cluster-reconfiguration)
+	- [8. Edge device deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#8-edge-device-deregistration)
+	- [9. Cloud deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#9-cloud-deregistration)
+- [NebulOuS SAL Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls)
 
 # Introduction
 Deployment Manager, i.e. Scheduling Abstraction Layer (SAL) is an abstraction layer initially developed as part of the EU project Morphemic by [Activeeon](https://www.activeeon.com/). Its development continued through the Nubulous EU project. SAL aims to enhance the usability of Execution adapter, i.e. [ProActive Scheduler & Resource Manager](https://doc.activeeon.com/latest/), by providing abstraction, making it easier for users to interact with the scheduler and take advantage of its features. Seamlessly supporting REST calls and direct communication with the Execution Adapter SAL empowers users to harness the scheduler's capabilities. 
