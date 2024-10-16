@@ -1,0 +1,1160 @@
+{
+	"info": {
+		"_postman_id": "b51d746b-f26f-4a0e-9d95-616251b56948",
+		"name": "SAL for Nebulous",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32715140"
+	},
+	"item": [
+		{
+			"name": "1. Connection",
+			"item": [
+				{
+					"name": "1.1.Connect",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{myLogin}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{myPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/pagateway/connect",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"pagateway",
+								"connect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.2.Disconnect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/pagateway/disconnect",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"pagateway",
+								"disconnect"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/1-connection-endpoints.md)"
+		},
+		{
+			"name": "2. Cloud",
+			"item": [
+				{
+					"name": "2.1. AddCloudOS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"cloudId\": \"{{cloud_name}}\",\n        \"cloudProviderName\": \"openstack\",\n        \"cloudType\": \"PRIVATE\",\n        \"subnet\": null,\n        \"securityGroup\": \"{{os-securityGroup}}\",\n        \"sshCredentials\": {\n            \"username\": \"{{os-username}}\",\n            \"keyPairName\": \"{{os-keypair}}\",\n            \"privateKey\": null\n        }, \n        \"endpoint\": \"{{os-auth_url}}\",\n        \"scope\": {\n            \"prefix\": \"project\",\n            \"value\": \"{{os-projectName}}\"\n        },\n        \"identityVersion\": \"{{os-identity-api-version}}\",\n        \"defaultNetwork\": \"{{os-defaultNetwork}}\",\n        \"credentials\": {\n            \"user\": \"{{os-user}}\",\n            \"secret\": \"{{os-secret}}\",\n            \"domain\": \"{{os-domain}}\"\n        },\n        \"blacklist\": null\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. AddCloud OS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"cloudId\": \"{{cloud_name}}\",\n        \"cloudProviderName\": \"openstack\",\n        \"cloudType\": \"PRIVATE\",\n        \"securityGroup\": \"01c87c6b-30ef-4c64-826a-79d83357a517\",\n        \"sshCredentials\": {\n            \"username\": \"ubuntu\",\n            \"keyPairName\": \"rudi-bgo\",\n            \"privateKey\": null\n        },\n        \"subnet\": null,\n        \"endpoint\": \"https://api.nrec.no:5000/v3\",\n        \"scope\": {\n            \"prefix\": \"project\",\n            \"value\": \"uio-ifi-nebulous\"\n        },\n        \"identityVersion\": \"3\",\n        \"defaultNetwork\": \"dab01c68-c25d-4051-ad5b-7b7b07f16f05\",\n        \"credentials\": {\n            \"user\": \"optimizer@uio-ifi-nebulous\",\n            \"secret\": \"{{os-secret-rudi}}\",\n            \"domain\": \"dataporten\"\n        },\n        \"blacklist\": null\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.1. AddCloudAWS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n       \"cloudId\": \"{{cloud_name}}\", \n        \"cloudProviderName\": \"aws-ec2\",\n        \"cloudType\": \"PUBLIC\",\n        \"subnet\": null,\n        \"securityGroup\": \"{{aws-securityGroup}}\",\n        \"sshCredentials\": {\n            \"username\": \"{{aws-username}}\",\n            \"keyPairName\": \"{{aws-keypair}}\",\n            \"privateKey\": \"{{aws-privatekey}}\"\n        },\n\n        \"endpoint\": null,\n        \"scope\": {\n            \"prefix\": null,\n            \"value\": null\n        },\n        \"identityVersion\": null,\n        \"defaultNetwork\": null,\n        \"credentials\": {\n            \"user\": \"{{aws-user}}\",\n            \"secret\": \"{{aws-secret}}\",\n            \"domain\": null\n        },\n        \"blacklist\": null\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.2. GetAllClouds",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3. isAnyAsyncNodeCandidatesProcessesInProgress",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/async",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud",
+								"async"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4. GetCloudImages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/images?cloudid={{cloud_name}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud",
+								"images"
+							],
+							"query": [
+								{
+									"key": "cloudid",
+									"value": "{{cloud_name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.5. GetCloudLocation",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/location",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud",
+								"location"
+							],
+							"query": [
+								{
+									"key": "cloudid",
+									"value": "{{cloud_name}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.6. GetCloudHardware",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/hardware",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud",
+								"hardware"
+							],
+							"query": [
+								{
+									"key": "cloudid",
+									"value": "{{cloud_name}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.7. RemoveClouds",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							},
+							{
+								"key": "preempt",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  //  \"{{cloud_name}}\"\n  // , \"aws-AE-min\"\n  // , \"aws-AE\"\n   \"aws-robert\"\n  // , \"os-ankica\"\n  // , \"os-rudi\"\n    //another clouds to be removed\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/remove",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md)"
+		},
+		{
+			"name": "4. Edge",
+			"item": [
+				{
+					"name": "4.1. RegisterNewEdgeNode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{edge_name}}\",\n    \"loginCredential\": {\n        \"username\": \"{{ssh_username}}\",\n        \"password\": \"{{ssh_password}}\",\n        \"privateKey\": \"\"\n    },\n    \"ipAddresses\": [\n        {\n            \"IpAddressType\": \"PUBLIC_IP\",\n            \"IpVersion\": \"V4\",\n            \"value\": \"{{public_ip}}\"\n        },\n        {\n            \"IpAddressType\": \"PRIVATE_IP\",\n            \"IpVersion\": \"V4\",\n            \"value\": \"{{private_ip}}\"\n        }\n    ],\n    \"nodeProperties\": {\n        \"providerId\": \"1\",\n        \"numberOfCores\": \"{{cores}}\", //e.g. \"1\"\n        \"memory\": \"{{memory}}\", //e.g. \"1\"\n        \"disk\": \"{{disk}}\", //e.g. \"1.0\"\n        \"operatingSystem\": {\n            \"operatingSystemFamily\": \"{{OS_name}}\",\n            \"operatingSystemArchitecture\": \"{{OS_arhitecture}}\", \n            \"operatingSystemVersion\": \"{{OS_version}}\"\n        },\n        \"geoLocation\": {\n            \"city\": \"{{edge_city}}\",\n            \"country\": \"{{edge_county}}\",\n            \"latitude\": \"{{edge_latitude}}\", //e.g. \"52.237049\"\n            \"longitude\": \"{{edge_latitude}}\" //e.g. \"21.017532\"\n        }\n    },\n    \"port\": \"{{edge_port}}\",\n    \"jobId\": \"{{jobId}}\", // use \"0\" or \"any\" when device is NOT associated with ProActive job\n    \"systemArch\": \"{{edge_architecture}}\", // MUST be \"AMD\", \"ARMv8\" OR \"ARMv7\"\n    \"scriptURL\": \"https://www.google.com\",\n    \"jarURL\": \"{{jar_url}}\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/edge/register",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"edge",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.2. GetEdgeNodes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/edge/{{jobId}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"edge",
+								"{{jobId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.4.DeleteEdgeNode",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/edge/{{EdgeNodeID}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"edge",
+								"{{EdgeNodeID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md)"
+		},
+		{
+			"name": "7. Node",
+			"item": [
+				{
+					"name": "7.1. FindNodeCandidates",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  // to retrive all node candidates it is sufficient to pass empty body. Later examples are provided to illustrate how to form the search quarry.\n  \n  // asking for IASS node type. In a case of searching for edge device it is to insert EDGE instead\n  {\n    \"type\": \"NodeTypeRequirement\",\n    \"nodeTypes\": [\"IAAS\"]\n  },\n  // asking for nodes from specific cloud\n  {\n    \"type\": \"AttributeRequirement\",\n    \"requirementClass\": \"cloud\",\n    \"requirementAttribute\": \"id\",\n    \"requirementOperator\": \"EQ\",\n    \"value\": \"{{cloud_name}}\"\n  },\n  // asking for UBUNTU operating system\n  {\n    \"type\": \"AttributeRequirement\",\n    \"requirementClass\": \"image\",\n    \"requirementAttribute\": \"operatingSystem.family\",\n    \"requirementOperator\": \"IN\",\n    \"value\": \"UBUNTU\"\n  },\n  // asking for 22 version of OS\n  {\n    \"type\": \"AttributeRequirement\",\n    \"requirementClass\": \"image\",\n    \"requirementAttribute\": \"name\",\n    \"requirementOperator\": \"INC\",\n    \"value\": \"22\"\n  },\n  // asking for specific region\n  {\n    \"type\": \"AttributeRequirement\",\n    \"requirementClass\": \"location\",\n    \"requirementAttribute\": \"name\",\n    \"requirementOperator\": \"EQ\",\n    \"value\": \"bgo\"\n  },\n  // asking for 8GB RAM\n  {\n    \"type\": \"AttributeRequirement\",\n    \"requirementClass\": \"hardware\",\n    \"requirementAttribute\": \"ram\",\n    \"requirementOperator\": \"EQ\",\n    \"value\": \"8192\"\n  },\n  // asking for 4 cores\n  {\n    \"type\": \"AttributeRequirement\",\n    \"requirementClass\": \"hardware\",\n    \"requirementAttribute\": \"cores\",\n    \"requirementOperator\": \"EQ\",\n    \"value\": \"4\"\n  },\n  // asking specific hardware name\n  {\n    \"type\": \"AttributeRequirement\",\n    \"requirementClass\": \"hardware\",\n    \"requirementAttribute\": \"name\",\n    \"requirementOperator\": \"EQ\",\n    \"value\": \"c5.xlarge\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/nodecandidates",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"nodecandidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. FindNodeCandidates_masterOS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    //asking for IASS node type\n    {\n        \"type\": \"NodeTypeRequirement\",\n        \"nodeTypes\": [\"IAAS\"]\n    },\n    //asking for nodes from specific cloud\n    {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"cloud\",\n        \"requirementAttribute\": \"id\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"{{cloud_name}}\"\n    },\n    //asking for UBUNTU operating system\n    {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"image\",\n        \"requirementAttribute\": \"operatingSystem.family\",\n        \"requirementOperator\": \"IN\",\n        \"value\": \"UBUNTU\"\n    },\n    //asking for 22 version of OS\n    {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"image\",\n        \"requirementAttribute\": \"name\",\n        \"requirementOperator\": \"INC\",\n        \"value\": \"22\"\n    },\n    //asking for specific region\n    {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"location\",\n        \"requirementAttribute\": \"name\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"bgo\"\n    },\n    //asking for 8GB RAM\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"ram\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"8192\"\n    },\n    //asking for 4 cores\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"cores\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"4\"\n    }\n\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/nodecandidates",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"nodecandidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. FindNodeCandidates_masterAWS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    //asking for IASS node type\n    {\n        \"type\": \"NodeTypeRequirement\",\n        \"nodeTypes\": [\"IAAS\"]\n    },\n    //asking for nodes from specific cloud\n    {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"cloud\",\n        \"requirementAttribute\": \"id\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"{{cloud_name}}\"\n    },\n    \n    //asking for 8GB RAM\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"ram\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"8192\"\n    },\n    //asking for 4 cores\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"cores\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"4\"\n    },\n\n    //asking specific location name\n     {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"location\",\n        \"requirementAttribute\": \"name\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"us-east-1\"\n    },\n\n    //asking specific hardware name\n     {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"name\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"c5.xlarge\"\n    } \n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/nodecandidates",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"nodecandidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. FindNodeCandidates_edge",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"type\": \"NodeTypeRequirement\",\n        \"nodeTypes\": [\"EDGE\"]\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/nodecandidates",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"nodecandidates"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/7-node-endpoints.md](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/7-node-endpoints.md)"
+		},
+		{
+			"name": "10. Cluster",
+			"item": [
+				{
+					"name": "10.1. DefineCluster",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{cluster_name}}\",\n    \"master-node\": \"{{master_name}}\",\n    \"nodes\": [\n        {\n            \"nodeName\": \"{{master_name}}\",\n            \"nodeCandidateId\": \"{{MasterNodeCandidate}}\",\n            \"cloudId\": \"{{cloud_name}}\"\n        },\n        {\n            \"nodeName\": \"{{worker_name}}\",\n            \"nodeCandidateId\": \"{{WorkerNodeCandidate}}\",\n            \"cloudId\": \"{{cloud_name}}\"\n        }\n    ],\n    \"env-var\":{\n        //here add any env variable needed for the cluster in the form \"ENV_VAR_NAME\":\"test-ENV_VAR_value\"\n        // for instance: \"APPLICATION_ID\":\"0fb75671-8955-4c06-9a8c-d397b29e3894\"\n        \"{{env_var_name1}}\":\"{{env_var_value1}}\",\n        \"{{env_var_name2}}\":\"{{env_var_value2}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.2. DeployCluster",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.3. GetCluster",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.4 ManageApplication",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"appFile\" : \"---\\napiVersion: \\\"core.oam.dev/v1beta1\\\"\\nkind: \\\"Application\\\"\\nmetadata:\\n  name: \\\"dummy-app-deploy\\\"\\nspec:\\n  components:\\n  - name: \\\"{{app_component_name}}\\\"\\n    type: \\\"webservice\\\"\\n    properties:\\n      cpu: \\\"2.0\\\"\\n      memory: \\\"2048Mi\\\"\\n      image: \\\"docker.io/rsprat/mytestrepo:v1\\\"\\n      imagePullPolicy: \\\"Always\\\"\\n      cmd:\\n      - \\\"python\\\"\\n      - \\\"worker.py\\\"\\n      env:\\n      - name: \\\"mqtt_ip\\\"\\n        value: \\\"broker.hivemq.com\\\"\\n      - name: \\\"mqtt_port\\\"\\n        value: \\\"1883\\\"\\n      - name: \\\"mqtt_subscribe_topic\\\"\\n        value: \\\"$share/workers/neb/test/input\\\"\\n      - name: \\\"nebulous_ems_ip\\\"\\n        valueFrom:\\n          fieldRef:\\n            fieldPath: \\\"status.hostIP\\\"\\n      - name: \\\"nebulous_ems_port\\\"\\n        value: \\\"61610\\\"\\n      - name: \\\"nebulous_ems_user\\\"\\n        value: \\\"aaa\\\"\\n      - name: \\\"nebulous_ems_password\\\"\\n        value: \\\"111\\\"\\n      - name: \\\"nebulous_ems_metrics_topic\\\"\\n        value: \\\"realtime.job_process_time_instance\\\"\\n    traits:\\n    - type: \\\"scaler\\\"\\n      properties:\\n        replicas: 2\\n  policies:\\n  - name: \\\"target-default\\\"\\n    type: \\\"topology\\\"\\n    properties:\\n      namespace: \\\"default\\\"\\n  workflow:\\n    steps:\\n    - name: \\\"deploy2default\\\"\\n      type: \\\"deploy\\\"\\n      properties:\\n        policies:\\n        - \\\"target-default\\\"\\n\",\n  \"packageManager\" : \"kubevela\", // kubectl or helm\n  \"appName\" : \"{{app_name}}\",\n  \"action\" : \"apply\",\n  \"flags\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/app",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"app"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.5. DeleteCluster",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.6. ScaleOut",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[ \n    //scale out using WorkerNodeCandidate which is part of the cluster and introducing the new node name\n    {\n        \"nodeName\": \"{{new_worker_name1}}\",\n\t\t\"nodeCandidateId\": \"{{WorkerNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n    },\n    {\n        \"nodeName\": \"{{new_worker_name2}}\",\n\t\t\"nodeCandidateId\": \"{{WorkerNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n    }\n    // ....\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/scaleout",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"scaleout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.8 LabelNodes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    // to add lable it is to use value 'yes' and to remove 'no' \n    {\n        \"{{worker_name}}\":\"{{domain_prefix}}/{{app_component_name}}=yes\",\n        \"{{worker2_name}}\":\"{{domain_prefix}}/{{app_component_name}}=no\"\n    }\n]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/label",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"label"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10.7 ScaleIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    \"{{worker_name}}\",\n    \"{{worker_name2}}\"\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/scalein",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"scalein"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. DefineCluster",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"name\": \"{{cluster_name}}\",\n    \"master-node\": \"{{master_name}}\",\n    \"nodes\": [\n\t{\n\t\t\"nodeName\": \"{{master_name}}\",\n\t\t\"nodeCandidateId\": \"{{MasterNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n\t}\n\n\t,{\n\t\t\"nodeName\": \"{{worker_name}}\",\n\t\t\"nodeCandidateId\": \"{{WorkerNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n\t}\n/*\n    ,{\n\t \t\"nodeName\": \"{{edge_name}}\",\n\t \t\"nodeCandidateId\": \"{{EdgeNodeCandidate}}\",\n\t \t\"cloudId\": \"edge\"\n\t }\n*/\n    ]\n,\n    \"env-var\":{\n        //here add any env variable needed for the cluster with \"ENV_VAR_NAME\":\"test-ENV_VAR_value\"\n        \"APPLICATION_ID\": \"changeforeachdeployment\",\n        \"BROKER_ADDRESS\": \"158.37.63.86\",\n        \"ACTIVEMQ_HOST\": \"158.37.63.86\",\n        \"BROKER_PORT\": \"32754\",\n        \"ACTIVEMQ_PORT\": \"32754\",\n        \"ONM_IP\": \"158.39.201.249\",\n        \"ONM_URL\": \"https://onm.cd.nebulouscloud.eu\",\n        \"AMPL_LICENSE\": \"dontlookatthis\"\n        \n    }\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. ManageApplication [replica-1]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"appFile\" : \"---\\napiVersion: \\\"core.oam.dev/v1beta1\\\"\\nkind: \\\"Application\\\"\\nmetadata:\\n  name: \\\"dummy-app-deploy\\\"\\nspec:\\n  components:\\n  - name: \\\"dummy-app-worker\\\"\\n    type: \\\"webservice\\\"\\n    properties:\\n      cpu: \\\"2.0\\\"\\n      memory: \\\"2048Mi\\\"\\n      image: \\\"docker.io/rsprat/mytestrepo:v1\\\"\\n      imagePullPolicy: \\\"Always\\\"\\n      cmd:\\n      - \\\"python\\\"\\n      - \\\"worker.py\\\"\\n      env:\\n      - name: \\\"mqtt_ip\\\"\\n        value: \\\"broker.hivemq.com\\\"\\n      - name: \\\"mqtt_port\\\"\\n        value: \\\"1883\\\"\\n      - name: \\\"mqtt_subscribe_topic\\\"\\n        value: \\\"$share/workers/neb/test/input\\\"\\n      - name: \\\"nebulous_ems_ip\\\"\\n        valueFrom:\\n          fieldRef:\\n            fieldPath: \\\"status.hostIP\\\"\\n      - name: \\\"nebulous_ems_port\\\"\\n        value: \\\"61610\\\"\\n      - name: \\\"nebulous_ems_user\\\"\\n        value: \\\"aaa\\\"\\n      - name: \\\"nebulous_ems_password\\\"\\n        value: \\\"111\\\"\\n      - name: \\\"nebulous_ems_metrics_topic\\\"\\n        value: \\\"realtime.job_process_time_instance\\\"\\n    traits:\\n    - type: \\\"scaler\\\"\\n      properties:\\n        replicas: 2\\n  policies:\\n  - name: \\\"target-default\\\"\\n    type: \\\"topology\\\"\\n    properties:\\n      namespace: \\\"default\\\"\\n  workflow:\\n    steps:\\n    - name: \\\"deploy2default\\\"\\n      type: \\\"deploy\\\"\\n      properties:\\n        policies:\\n        - \\\"target-default\\\"\\n\",\n  \"packageManager\" : \"kubevela\", //or you can use kubectl\n  \"appName\" : \"{{app_name}}\",\n  \"action\" : \"apply\",\n  \"flags\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/app",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"app"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. ScaleOut",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[ {\n//scale out using same WorkerNodeCandidate and introducing the new node name\n  \t\t\"nodeName\": \"{{worker2_name}}\",\n\t\t\"nodeCandidateId\": \"{{WorkerNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n\n} ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/scaleout",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"scaleout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. LabelNodes [scaleOut]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n//the existing worker is already correctly labeled so we don’t relabel it \n{\"{{worker2_name}}\":\"nebulouscloud.eu/dummy-app-worker=yes\"}\n]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/label",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"label"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. manageApplication [replica-2]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"appFile\" : \"---\\napiVersion: \\\"core.oam.dev/v1beta1\\\"\\nkind: \\\"Application\\\"\\nmetadata:\\n  name: \\\"dummy-app-deploy\\\"\\nspec:\\n  components:\\n  - name: \\\"dummy-app-worker\\\"\\n    type: \\\"webservice\\\"\\n    properties:\\n      cpu: \\\"2.0\\\"\\n      memory: \\\"2048Mi\\\"\\n      image: \\\"docker.io/rsprat/mytestrepo:v1\\\"\\n      imagePullPolicy: \\\"Always\\\"\\n      cmd:\\n      - \\\"python\\\"\\n      - \\\"worker.py\\\"\\n      env:\\n      - name: \\\"mqtt_ip\\\"\\n        value: \\\"broker.hivemq.com\\\"\\n      - name: \\\"mqtt_port\\\"\\n        value: \\\"1883\\\"\\n      - name: \\\"mqtt_subscribe_topic\\\"\\n        value: \\\"$share/workers/neb/test/input\\\"\\n      - name: \\\"nebulous_ems_ip\\\"\\n        valueFrom:\\n          fieldRef:\\n            fieldPath: \\\"status.hostIP\\\"\\n      - name: \\\"nebulous_ems_port\\\"\\n        value: \\\"61610\\\"\\n      - name: \\\"nebulous_ems_user\\\"\\n        value: \\\"aaa\\\"\\n      - name: \\\"nebulous_ems_password\\\"\\n        value: \\\"111\\\"\\n      - name: \\\"nebulous_ems_metrics_topic\\\"\\n        value: \\\"realtime.job_process_time_instance\\\"\\n    traits:\\n    - type: \\\"scaler\\\"\\n      properties:\\n        replicas: 2\\n  policies:\\n  - name: \\\"target-default\\\"\\n    type: \\\"topology\\\"\\n    properties:\\n      namespace: \\\"default\\\"\\n  workflow:\\n    steps:\\n    - name: \\\"deploy2default\\\"\\n      type: \\\"deploy\\\"\\n      properties:\\n        policies:\\n        - \\\"target-default\\\"\\n\",\n  \"packageManager\" : \"kubevela\",\n  \"appName\" : \"{{app_name}}\",\n  \"action\" : \"apply\",\n  \"flags\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/app",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"app"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. LabelNodes [scaleIn]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n// removing the label from original node\n{\"{{worker_name}}\":\"nebulouscloud.eu/dummy-app-worker=no\"}\n]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/label",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"label"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. ScaleIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    \"{{worker_name}}\"\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/scalein",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cluster",
+								"{{cluster_name}}",
+								"scalein"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
