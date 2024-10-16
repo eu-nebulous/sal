@@ -154,6 +154,9 @@ If the deployment succeeds and returns `true`, you can track the ongoing progres
 #####  5.3. [GetCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#103--getcluster-endpoint) - Retrieving Cluster Deployment Status. 
 This endpoint provides detailed information on the current status of the Kubernetes cluster deployment.
 
+#####  5.4. [DeleteCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#105--deletecluster-endpoint) - Deleting a Cluster and Undeploying Resources.
+This endpoint enables the deletion of an existing Kubernetes cluster deployment. It removes all associated resources, including worker nodes and applications, effectively undeploying the cluster. Use this endpoint to fully dismantle a cluster and free up resources once the deployment is no longer needed.
+
 ### 6. Initial application deployment
 
 #####  6.1. [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint) - Managing application deployment.
@@ -189,13 +192,15 @@ To scale in an application, follow these steps:
 
 - _Remove Worker Nodes_: Finally, once the application replicas have been removed from the designated nodes, use the [ScaleIn endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#107--scalein-endpoint) to remove the worker nodes from the cluster, optimizing resource usage and reducing operational costs.
 
-### 8. Edge device deregistration (TBD)
+### 8. Edge device deregistration
 
-#####  8.1. [DeleteEdgeNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#44--deleteedgenode-endpoint)
+#####  8.1. [DeleteEdgeNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#44--deleteedgenode-endpoint) - TBD
+Regarding progress of this task consult [here](https://openproject.nebulouscloud.eu/projects/nebulous-2nd-release-1/work_packages/730).
 
-### 9. Cloud deregistration (TBD)
+### 9. Cloud deregistration
 
-#####  9.1. [RemoveClouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md#27--removeclouds-endpoint)
+#####  9.1. [RemoveClouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md#27--removeclouds-endpoint) - TBD
+Regarding progress of this task consult [here](https://openproject.nebulouscloud.eu/projects/nebulous-2nd-release-1/work_packages/731).
 
 
 # NebulOuS SAL Deployment (managed by 7Bulls)
