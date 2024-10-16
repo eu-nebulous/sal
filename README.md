@@ -42,7 +42,7 @@ To use this endpoint, you must specify a unique `cloud_name` that has not alread
 
 For more information on setting up cloud providers for Nebulous, refer to the [Managing Cloud Providers](https://github.com/eu-nebulous/nebulous/wiki/2.1-Managing-cloud-providers) documentation.
 
-Additionally, while the infrastructure may appear registered, this does not guarantee the correctness of the configured cloud infrastructure. Once registration is complete, an asynchronous process begins to retrieve images and node candidates, and provided authentication can be validated if it is correctly configured (see how isAnyAsyncNodeCandidatesProcessesInProgress and GetCloudImages endpoints can be used for validation). Note that SSH credentials are only utilized during [cluster deployment]().
+Additionally, while the infrastructure may appear registered, this does not guarantee the correctness of the configured cloud infrastructure. Once registration is complete, an asynchronous process begins to retrieve images and node candidates, and provided authentication can be validated if it is correctly configured (see how isAnyAsyncNodeCandidatesProcessesInProgress and GetCloudImages endpoints can be used for validation). Note that SSH credentials are only utilized during [Cluster Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#5-cluster-deployment).
 
 #####  2.2. [isAnyAsyncNodeCandidatesProcessesInProgress endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Checking for ongoing asynchronous processes for retrieving cloud images or node candidates.
 You should wait until this process returns `false`, indicating that the retrieval of cloud images and node candidates from the cloud provider is complete.
@@ -53,7 +53,9 @@ This endpoint can be used to verify that the cloud images and authentication set
 ### 3. Edge device registration
 
 #####  3.1. [RegisterNewEdgeNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#41--registernewedgenode-endpoint) - Registering a New Edge Device.
-This endpoint is used to register a new edge device. It returns the defined edge node structure, the registered edge device ID, and the node candidate ID representing this device. 
+This endpoint is used to register a new edge device. Upon successful registration, it returns the defined edge node structure, the unique edge device ID, and the node candidate ID representing this device.
+
+Note that during this process, the device is only registered with its associated information, while validation occurs during the actual  [Cluster Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#5-cluster-deployment), which uses the registered edge node. To fully deregister an edge device, you must use the [Edge Deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#8-edge-device-deregistration) endpoint, which ensures proper removal from the system.
 
 #####  3.2. [GetEdgeNodes endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#42--getedgenodes-endpoint) - Retrieving All Registered Edge Devices. 
 This endpoint retrieves all registered edge devices, providing all information initially returned during the device registration process.
@@ -141,12 +143,12 @@ This endpoint is used to define and configure Kubernetes cluster deployments. Wh
 
 The [script templates](https://github.com/ow2-proactive/scheduling-abstraction-layer/tree/master/docker/scripts) provided by SAL offer predefined structures for deployment, allowing for efficient configuration. Ensure that any required [environmental variables](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/env-variables-for-nebulous-application-deployment-scripts)  and their values are specified in the cluster definition; these variables are maintained by the owner of the component that uses them for Nebulous development purposes.
 
-To enable a successful deployment and execution, make sure that cloud or edge nodes are both available and selected as part of the configuration process.
-
 #####  5.2. [DeployCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#102--deploycluster-endpoint) - Deploying a Kubernetes Cluster.
 This endpoint initializes the cluster deployment process. Once started, you can monitor the progress of the deployment.
 
 If the deployment fails (i.e., the SAL does not return `true`), consult the SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container) and ProActive [logs](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#how-to-check-the-logs-of-proactive) i.e. `connector-iaas.log`.
+
+Note that deployment failures can occur due to various factors. To ensure a successful deployment and execution, confirm that selected cloud and edge nodes are available. Additionally, the information regarding SSH credentials and execution adapter scripts used for edge devices during [Cloud Registration](https://github.com/eu-nebulous/sal/blob/main/README.md#2-cloud-registration) or [Edge Device Registration](https://github.com/eu-nebulous/sal/blob/main/README.md#3-edge-device-registration) is validated only at the time of deployment execution.
 
 If the deployment succeeds and returns `true`, you can track the ongoing progress and troubleshoot any issues using the Execution Adapter interface. Monitoring tools include:
 - The ProActive dashboard for an overview of the entire deployment,
@@ -185,7 +187,6 @@ To scale out an application, follow these steps:
 - _Increase Application Replicas_: Finally, to complete the scale-out process, adjust the number of application replicas by calling the [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint). This will ensure the application takes advantage of the newly added worker nodes.
 
 #### 7.2. Scaling In the application
-7.2. Scaling In the Application
 To scale in an application, follow these steps:
 
 - _Label the Nodes for Removal_: First, use the [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint) to mark specific worker nodes as unavailable for new application replicas. This ensures that no new replicas are assigned to these nodes during the scaling process.
