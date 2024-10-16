@@ -162,7 +162,7 @@ This endpoint provides detailed information on the current status of the Kuberne
 #####  5.4. [DeleteCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#105--deletecluster-endpoint) - Deleting a Cluster and Undeploying Resources.
 This endpoint enables the deletion of an existing Kubernetes cluster deployment. It removes all associated resources, including worker nodes and applications, effectively undeploying the cluster. Use this endpoint to fully dismantle a cluster and free up resources once the deployment is no longer needed.
 
-### 6. Initial application deployment
+### 6. Application management
 
 #####  6.1. [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint) - Managing application deployment.
 This endpoint is used to deploy and manage applications within a specified Kubernetes cluster. It supports both the initial deployment of applications and the reconfiguration of application replicas, allowing you to adjust the number of replicas as needed for scaling and performance optimization.
