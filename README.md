@@ -153,6 +153,8 @@ Example of Searching for a Node Candidate Representing an `EDGE` Device:
 ```
 Note that for the `EDGE` devices, their node candidate ID is returned during registration. In a case you target a specific edge device it is to store it during the registration process, or to introduce the unique identifiyer into device name which can be search then using attribute requirement `name` in `hardware` class. 
 
+#####  4.2. [getLengthOfNodeCandidates endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/7-node-endpoints.md#72--getlengthofnodecandidates-endpoint) -  Returns total number of existing node candidates.
+
 ### 5. Cluster deployment
 
 #####  5.1. [DefineCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#101--definecluster-endpoint) - Defining Kubernetes cluster.
