@@ -167,11 +167,11 @@ This endpoint initializes the cluster deployment process. Once started, you can 
 
 If the deployment fails (i.e., the SAL does not return `true`), consult the SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container) and ProActive [logs](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#how-to-check-the-logs-of-proactive) i.e. `connector-iaas.log`.
 
-Note that deployment failures can occur due to various factors. To ensure a successful deployment and execution, confirm that selected cloud and edge nodes are available. Additionally, the information regarding SSH credentials and execution adapter scripts used for edge devices during [Cloud Registration](https://github.com/eu-nebulous/sal/blob/main/README.md#2-cloud-registration) or [Edge Device Registration](https://github.com/eu-nebulous/sal/blob/main/README.md#3-edge-device-registration) is validated only at the time of deployment execution.
+Note that deployment failures can occur due to various factors. To ensure a successful deployment and execution, confirm that selected cloud and edge nodes are available. Additionally, the information regarding SSH credentials and Execution Adapter scripts used for edge devices during [Cloud Registration](https://github.com/eu-nebulous/sal/blob/main/README.md#2-cloud-registration) or [Edge Device Registration](https://github.com/eu-nebulous/sal/blob/main/README.md#3-edge-device-registration) is validated only at the time of deployment execution.
 
 If the deployment succeeds and returns `true`, you can track the ongoing progress and troubleshoot any issues using the Execution Adapter interface. Monitoring tools include:
 - The ProActive dashboard for an overview of the entire deployment,
-- The ProActive Scheduler for details on individual task execution, and
+- The ProActive Scheduler for details on individual task execution, 
 - The ProActive Resource Manager to monitor resource utilization.
 
 #####  5.3. [GetCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#103--getcluster-endpoint) - Retrieving Cluster Deployment Status. 
@@ -196,7 +196,7 @@ This endpoint allows you to scale in the Kubernetes cluster by removing specifie
 #####  7.3. [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint) - Managing Node Labels
 This endpoint allows you to manage node labels within a Kubernetes cluster, enabling you to add, modify, or remove labels on specific nodes. Use this feature to organize and categorize nodes effectively, which can aid in scheduling, resource management, and targeting specific nodes for workloads.
 
-#### 7.1. Scaling Out the application
+#### Scaling Out the application
 To scale out an application, follow these steps:
 
 - _Add New Worker Nodes_: First, use the [ScaleOut endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#106--scaleout-endpoint) to add additional worker nodes to the existing Kubernetes cluster.
@@ -205,7 +205,7 @@ To scale out an application, follow these steps:
 
 - _Increase Application Replicas_: Finally, to complete the scale-out process, adjust the number of application replicas by calling the [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint). This will ensure the application takes advantage of the newly added worker nodes.
 
-#### 7.2. Scaling In the application
+#### Scaling In the application
 To scale in an application, follow these steps:
 
 - _Label the Nodes for Removal_: First, use the [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint) to mark specific worker nodes as unavailable for new application replicas. This ensures that no new replicas are assigned to these nodes during the scaling process.
