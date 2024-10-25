@@ -1,5 +1,5 @@
 # Table of Contents
-- [Introduction](https://github.com/eu-nebulous/sal/blob/main/README.md#introduction)
+- [Introduction](https://github.com/eu-NebulOuS/sal/blob/main/README.md#introduction)
 - [Report Issue](https://github.com/eu-nebulous/sal/blob/main/README.md#report-issue)
 - [NebulOuS Development](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-development)
 - [NebulOus scenario](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-scenario)
@@ -15,14 +15,14 @@
 - [NebulOuS SAL Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls)
 
 # Introduction
-Deployment Manager, i.e. Scheduling Abstraction Layer (SAL) is an abstraction layer initially developed as part of the EU project Morphemic by [Activeeon](https://www.activeeon.com/). Its development continued through the Nebulous EU project. SAL aims to enhance the usability of Execution Adapter, i.e. [ProActive Scheduler & Resource Manager](https://doc.activeeon.com/latest/), by providing abstraction, making it easier for users to interact with the scheduler and take advantage of its features. Seamlessly supporting REST calls and direct communication with the Execution Adapter SAL empowers users to harness the scheduler's capabilities. 
+Deployment Manager, i.e. Scheduling Abstraction Layer (SAL) is an abstraction layer initially developed as part of the EU project Morphemic by [Activeeon](https://www.activeeon.com/). Its development continued through the NebulOuS EU project. SAL aims to enhance the usability of Execution Adapter, i.e. [ProActive Scheduler & Resource Manager](https://doc.activeeon.com/latest/), by providing abstraction, making it easier for users to interact with the scheduler and take advantage of its features. Seamlessly supporting REST calls and direct communication with the Execution Adapter SAL empowers users to harness the scheduler's capabilities. 
 
 SAL Code repository and documentation can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md).
 
 # Report Issue
 In a case of issue, please create the bug error report [here](https://github.com/eu-nebulous/sal/issues). 
 When reporting issue, for faster resolution of your problem, please include:
-- the description of the scenario e.g. Nebulous sequence diagrams which were executed
+- the description of the scenario e.g. NebulOuS sequence diagrams which were executed
 - date and time, SAL and ProActive environment
 - SAL [logs](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#32-view-sal-logs) (especially ones inside of container)
 - ProActive [logs](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#how-to-check-the-logs-of-proactive) i.e. `connector-iaas.log`
@@ -30,11 +30,11 @@ When reporting issue, for faster resolution of your problem, please include:
 - detailed description of the action during which it happened 
 
 # NebulOuS Development
-Note that there is additional documentation for Nebulous development is provided [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/deployment-manager-sal-1).
-For preset Nebulous environment for testing and development, you can find more information on how to access SAL [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/sal-in-nebulous-k8s), and regarding ProActive [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/proactive-in-nebulous-k8s) 
+Note that there is additional documentation for NebulOuS development is provided [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/deployment-manager-sal-1).
+For preset NebulOuS environment for testing and development, you can find more information on how to access SAL [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/sal-in-nebulous-k8s), and regarding ProActive [here](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/proactive-in-nebulous-k8s) 
 
 # NebulOus scenario 
-This section describes how the Deployment Manager and Execution Adapter support the Nebulous scenario. It outlines the sequence of SAL operations provided to facilitate NebulOuS deployment and execution. For more information on using SAL endpoints, refer to the [SAL Endpoint Documentation](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
+This section describes how the Deployment Manager and Execution Adapter support the NebulOuS scenario. It outlines the sequence of SAL operations provided to facilitate NebulOuS deployment and execution. For more information on using SAL endpoints, refer to the [SAL Endpoint Documentation](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
 Developers can utilize the provided [Postman collection](https://github.com/eu-nebulous/sal/blob/main/resources/SAL%20for%20Nebulous.postman_collection.json) to get started with the endpoints or consult the previous [documentation](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/sal-postman-testing-scenario) for further details on the testing scenario.
 
@@ -45,7 +45,7 @@ In the [configuration script](https://github.com/eu-nebulous/sal/blob/main/resou
 - `<USERNAME>`
 - `<PASSWORD>`
 
-The rest of the configuration is automatically handled by Nebulous (see [Nebulous SAL deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls) for more details).
+The rest of the configuration is automatically handled by NebulOuS (see [NebulOuS SAL deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls) for more details).
 
 For additional information on setting up the SAL Kubernetes deployment script, refer to [this guide](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#23-deploying-sal-as-a-kubernetes-pod). You can find details on using the endpoints [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md#31-using-sal-rest-endpoints).
 
@@ -57,7 +57,7 @@ Keep in mind that the connection to ProActive may be lost during scenario execut
 #####  2.1. [Add cloud endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Defining a cloud infrastructure.
 To use this endpoint, you must specify a unique `cloud_name` that has not already been registered. Note that after a SAL restart, cloud information is erased from the SAL database, though it remains in the Execution Adapter. If you use a `cloud_name` that has already been registered, the infrastructure will not be updated with new information, and resources on the cloud provider may not be properly released. The only proper way to remove cloud resources is by using the [Cloud deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#9-cloud-deregistration)  endpoint.
 
-For more information on setting up cloud providers for Nebulous, refer to the [Managing Cloud Providers](https://github.com/eu-nebulous/nebulous/wiki/2.1-Managing-cloud-providers) documentation.
+For more information on setting up cloud providers for NebulOuS, refer to the [Managing Cloud Providers](https://github.com/eu-nebulous/nebulous/wiki/2.1-Managing-cloud-providers) documentation.
 
 Additionally, while the infrastructure may appear registered, this does not guarantee the correctness of the configured cloud infrastructure. Once registration is complete, an asynchronous process begins to retrieve images and node candidates, and provided authentication can be validated if it is correctly configured (see how isAnyAsyncNodeCandidatesProcessesInProgress and GetCloudImages endpoints can be used for validation). Note that SSH credentials are only utilized during [Cluster Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#5-cluster-deployment).
 
@@ -82,7 +82,7 @@ This endpoint retrieves all registered edge devices, providing all information i
 #####  4.1. [findNodeCandidates endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/7-node-endpoints.md#71--findnodecandidates-endpoint) -  Filtering Node Candidates Based on Deployment Requirements.
 This endpoint allows you to filter node candidates using various criteria to select suitable nodes for deployment. Specify the required conditions for master or worker nodes within the cluster and store the retrieved node candidate IDs for future use.
 
-In Nebulous, there are only two node types:`IAAS` for the cloud nodes, and `EDGE` for nodes representing edge devices. 
+In NebulOuS, there are only two node types:`IAAS` for the cloud nodes, and `EDGE` for nodes representing edge devices. 
 
 Example of Searching for Node Candidates in an OpenStack Cloud:
 - Node Type: IAAS (cloud node)
@@ -158,9 +158,9 @@ Note that for the `EDGE` devices, their node candidate ID is returned during reg
 ### 5. Cluster deployment
 
 #####  5.1. [DefineCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#101--definecluster-endpoint) - Defining Kubernetes cluster.
-This endpoint is used to define and configure Kubernetes cluster deployments. When setting up a Kubernetes cluster using this endpoint, [scripts](https://github.com/eu-nebulous/sal-scripts) maintained by Nebulous developers streamline the deployment process by installing essential software components within the cluster. These scripts and other parts of the deployment workflow can be debugged and tested using [ProActive workflows](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/script-changing-and-testing-using-proactive-workflows), enabling seamless integration and troubleshooting.
+This endpoint is used to define and configure Kubernetes cluster deployments. When setting up a Kubernetes cluster using this endpoint, [scripts](https://github.com/eu-nebulous/sal-scripts) maintained by NebulOuS developers streamline the deployment process by installing essential software components within the cluster. These scripts and other parts of the deployment workflow can be debugged and tested using [ProActive workflows](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/script-changing-and-testing-using-proactive-workflows), enabling seamless integration and troubleshooting.
 
-The [script templates](https://github.com/ow2-proactive/scheduling-abstraction-layer/tree/master/docker/scripts) provided by SAL offer predefined structures for deployment, allowing for efficient configuration. Ensure that any required [environmental variables](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/env-variables-for-nebulous-application-deployment-scripts)  and their values are specified in the cluster definition; these variables are maintained by the owner of the component that uses them for Nebulous development purposes.
+The [script templates](https://github.com/ow2-proactive/scheduling-abstraction-layer/tree/master/docker/scripts) provided by SAL offer predefined structures for deployment, allowing for efficient configuration. Ensure that any required [environmental variables](https://openproject.nebulouscloud.eu/projects/nebulous-collaboration-hub/wiki/env-variables-for-nebulous-application-deployment-scripts)  and their values are specified in the cluster definition; these variables are maintained by the owner of the component that uses them for NebulOuS development purposes.
 
 #####  5.2. [DeployCluster endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#102--deploycluster-endpoint) - Deploying a Kubernetes Cluster.
 This endpoint initializes the cluster deployment process. Once started, you can monitor the progress of the deployment.
@@ -237,4 +237,4 @@ prod environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clus
 
 test environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-test/helm-releases/specific-patches/nebulous-sal.yaml
 
-dev environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-dev/helm-releases/specific-patches/nebulous-sal.yaml
+dev environment: https://github.com/eu-NebulOuS/nrec-flux-config/blob/main/clusters/primary/NebulOuS-dev/helm-releases/specific-patches/NebulOuS-sal.yaml
