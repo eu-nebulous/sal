@@ -61,6 +61,8 @@ For more information on setting up cloud providers for NebulOuS, refer to the [M
 
 Additionally, while the infrastructure may appear registered, this does not guarantee the correctness of the configured cloud infrastructure. Once registration is complete, an asynchronous process begins to retrieve images and node candidates, and provided authentication can be validated if it is correctly configured (see how isAnyAsyncNodeCandidatesProcessesInProgress and GetCloudImages endpoints can be used for validation). Note that SSH credentials are only utilized during [Cluster Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#5-cluster-deployment).
 
+Finnaly, keep in mind that the cloud should be properly deregistered using [Remove Clouds](https://github.com/eu-nebulous/sal#91-removeclouds-endpoint) endpoint, so that the used nodes are undeployed from cloud provider, and there are no 'hanging' clouds left inside of the ProActive server which can cause unexpected behaviour especially in a case the same cloud name is used.
+
 #####  2.2. [isAnyAsyncNodeCandidatesProcessesInProgress endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Checking for ongoing asynchronous processes for retrieving cloud images or node candidates.
 You should wait until this process returns `false`, indicating that the retrieval of cloud images and node candidates from the cloud provider is complete.
 
@@ -221,8 +223,17 @@ Regarding progress of this task consult [here](https://openproject.nebulouscloud
 
 ### 9. Cloud deregistration
 
-#####  9.1. [RemoveClouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md#27--removeclouds-endpoint) - TBD
-Regarding progress of this task consult [here](https://openproject.nebulouscloud.eu/projects/nebulous-2nd-release-1/work_packages/731).
+#####  9.1. [RemoveClouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md#27--removeclouds-endpoint)
+This endpoint allows you to deregister one or more cloud infrastructures and undeploy its nodes from the cloud provider. 
+
+### 10. SAL Persistance (for developers and project mentors)
+SAL supports the clean operations for clusters, clouds, edge devices and the SAL database. These are to be used for maintainance puposes and by NebulOuS developers to assure that all the resources were undeployed and removed properly, not just from SAL, but as well from the ProActive server and cloud provieders. 
+#####  10.1. [CleanAll endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#01---clean-all-endpoint) 
+#####  10.1. [CleanAll Clusters endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#02---clean-all-clusters-endpoint) 
+#####  10.1. [CleanAll Clouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#03---clean-all-clouds-endpoint) 
+#####  10.1. [CleanAll Edges endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#04---clean-all-edge-devices-endpoint) 
+#####  10.1. [Clean SAL Database endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#05---clean-sal-database-endpoint) 
+
 
 
 # NebulOuS SAL Deployment (managed by 7Bulls)
