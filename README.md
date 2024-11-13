@@ -12,6 +12,7 @@
 	- [7. Cluster reconfiguration](https://github.com/eu-nebulous/sal/blob/main/README.md#7-cluster-reconfiguration)
 	- [8. Edge device deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#8-edge-device-deregistration)
 	- [9. Cloud deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#9-cloud-deregistration)
+ 	- [10. SAL Persistance for developers](https://github.com/eu-nebulous/sal#10-sal-persistance-for-developers-and-project-mentors)	
 - [NebulOuS SAL Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls)
 
 # Introduction
