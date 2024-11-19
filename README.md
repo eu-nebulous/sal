@@ -219,7 +219,7 @@ To scale in an application, follow these steps:
 
 ### 8. Edge device deregistration
 
-#####  8.1. [DeleteEdgeNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#44--deleteedgenode-endpoint) - 
+#####  8.1. [DeleteEdgeNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#44--deleteedgenode-endpoint)
 This endpoint is used to deregister edge device using it's ID which is returned during (registration process)[https://github.com/eu-nebulous/sal/#3-edge-device-registration] and can be retrived by using GetEdgeNodes endpoint. 
 
 ### 9. Cloud deregistration
