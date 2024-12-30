@@ -148,7 +148,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "[https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md)"
 		},
 		{
 			"name": "1. Connection",
@@ -293,6 +294,74 @@
 				},
 				{
 					"name": "2.1. AddCloudAWS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n       \"cloudId\": \"{{cloud_name}}\", \n        \"cloudProviderName\": \"aws-ec2\",\n        \"cloudType\": \"PUBLIC\",\n        \"subnet\": null,\n        \"securityGroup\": \"{{aws-securityGroup}}\",\n        \"sshCredentials\": {\n            \"username\": \"{{aws-username}}\",\n            \"keyPairName\": \"{{aws-keypair}}\",\n            \"privateKey\": \"{{aws-privatekey}}\"\n        },\n\n        \"endpoint\": null,\n        \"scope\": {\n            \"prefix\": null,\n            \"value\": null\n        },\n        \"identityVersion\": null,\n        \"defaultNetwork\": null,\n        \"credentials\": {\n            \"user\": \"{{aws-user}}\",\n            \"secret\": \"{{aws-secret}}\",\n            \"domain\": null\n        },\n        \"blacklist\": null\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.1. AddCloudAzure",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"cloudId\": \"{{cloud_name}}\",\n        \"cloudProviderName\": \"azure\",\n        \"cloudType\": \"PUBLIC\",\n        \"subnet\": null,\n        \"securityGroup\": \"{{azure-securityGroup}}\",\n        \"sshCredentials\": {\n            \"username\": \"{{azure-username}}\",\n            \"keyPairName\": null,\n            \"privateKey\": \"{{azure-password}}\"\n        },\n        \"endpoint\": null,\n        \"scope\": {\n            \"prefix\": null,\n            \"value\": null\n        },\n        \"identityVersion\": null,\n        \"defaultNetwork\": null,\n        \"credentials\": {\n            \"user\": \"{{azure-user}}\",\n            \"secret\": \"{{azure-secret}}\",\n            \"domain\": \"{{azure-domain}}\",\n            \"subscriptionId\": \"{{azure-subscription}}\"\n        },\n        \"blacklist\": null\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"cloud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ex. AddCloudAzure",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -533,7 +602,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{edge_name}}\",\n    \"loginCredential\": {\n        \"username\": \"{{ssh_username}}\",\n        \"password\": \"{{ssh_password}}\",\n        \"privateKey\": \"\"\n    },\n    \"ipAddresses\": [\n        {\n            \"IpAddressType\": \"PUBLIC_IP\",\n            \"IpVersion\": \"V4\",\n            \"value\": \"{{public_ip}}\"\n        },\n        {\n            \"IpAddressType\": \"PRIVATE_IP\",\n            \"IpVersion\": \"V4\",\n            \"value\": \"{{private_ip}}\"\n        }\n    ],\n    \"nodeProperties\": {\n        \"providerId\": \"1\",\n        \"price\": \"{{price}}\", //e.g. \"10.5\"\n        \"numberOfCores\": \"{{cores}}\", //e.g. \"1\"\n        \"memory\": \"{{memory}}\", //e.g. \"1\"\n        \"disk\": \"{{disk}}\", //e.g. \"1.0\"\n        \"operatingSystem\": {\n            \"operatingSystemFamily\": \"{{OS_name}}\",\n            \"operatingSystemArchitecture\": \"{{OS_arhitecture}}\", \n            \"operatingSystemVersion\": \"{{OS_version}}\"\n        },\n        \"geoLocation\": {\n            \"city\": \"{{edge_city}}\",\n            \"country\": \"{{edge_county}}\",\n            \"latitude\": \"{{edge_latitude}}\", //e.g. \"52.237049\"\n            \"longitude\": \"{{edge_latitude}}\" //e.g. \"21.017532\"\n        }\n    },\n    \"port\": \"{{edge_port}}\",\n    \"jobId\": \"{{jobId}}\", // use \"0\" or \"any\" when device is NOT associated with ProActive job\n    \"systemArch\": \"{{edge_architecture}}\", // MUST be \"AMD\", \"ARMv8\" OR \"ARMv7\"\n    \"scriptURL\": \"https://www.google.com\",\n    \"jarURL\": \"{{jar_url}}\" \n}",
+							"raw": "{\n    \"name\": \"{{edge_name}}\",\n    \"loginCredential\": {\n        \"username\": \"{{ssh_username}}\",\n        \"password\": \"{{ssh_password}}\",\n        \"privateKey\": \"\"\n    },\n    \"ipAddresses\": [\n        {\n            \"IpAddressType\": \"PUBLIC_IP\",\n            \"IpVersion\": \"V4\",\n            \"value\": \"{{public_ip}}\"\n        },\n        {\n            \"IpAddressType\": \"PRIVATE_IP\",\n            \"IpVersion\": \"V4\",\n            \"value\": \"{{private_ip}}\"\n        }\n    ],\n    \"nodeProperties\": { //node properties are directly mapped to node candidate\n        \"price\": \"{{price}}\", //e.g. \"10.5\"\n        \"providerId\": \"{{providerID}}\", //e.g. \"1\"\n        \"cores\": \"{{cores}}\", //e.g. \"1\"\n        \"cpuFrequency\": \"{{cpuFrequency}}\", //e.g. \"10.5\"\n        \"ram\": \"{{ram}}\", //e.g. \"1\"\n        \"disk\": \"{{disk}}\", //e.g. \"1.0\"\n        \"fpga\": \"{{fpga}}\", //e.g. \"1\"\n        \"gpu\": \"{{gpu}}\", //e.g. \"1\"\n        \"operatingSystem\": {\n            \"operatingSystemFamily\": \"{{OS_name}}\",\n            \"operatingSystemArchitecture\": \"{{OS_arhitecture}}\", \n            \"operatingSystemVersion\": \"{{OS_version}}\"\n        },\n        \"geoLocation\": {\n            \"city\": \"{{edge_city}}\",\n            \"country\": \"{{edge_county}}\",\n            \"latitude\": \"{{edge_latitude}}\", //e.g. \"52.237049\"\n            \"longitude\": \"{{edge_latitude}}\" //e.g. \"21.017532\"\n        }\n    },\n    \"port\": \"{{edge_port}}\",\n    \"jobId\": \"{{jobId}}\", // use \"0\" or \"any\" when device is NOT associated with ProActive job\n    \"systemArch\": \"{{edge_architecture}}\", // MUST be \"AMD\", \"ARMv8\" OR \"ARMv7\"\n    \"scriptURL\": \"https://www.google.com\",\n    \"jarURL\": \"{{jar_url}}\" \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1324,7 +1393,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "[https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md)"
 		}
 	]
 }
