@@ -26,6 +26,9 @@ spec:
                   key: mysql-root-password
             - name: MYSQL_DATABASE
               value: proactive
+          volumeMounts:
+            - name: mariadb-storage
+              mountPath: /var/lib/mysql
           args: ["--wait_timeout=31536000"]
           livenessProbe:
             exec:
@@ -108,3 +111,6 @@ spec:
         - name: script-volume
           configMap:
             name: scripts-configmap
+        - name: mariadb-storage
+          persistentVolumeClaim:
+            claimName: mariadb-pvc
