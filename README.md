@@ -235,13 +235,48 @@ SAL supports the clean operations for clusters, clouds, edge devices and the SAL
 #####  10.1. [CleanAll Edges endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#04---clean-all-edge-devices-endpoint) 
 #####  10.1. [Clean SAL Database endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#05---clean-sal-database-endpoint) 
 
+#### 10.1. Restarting the SAL Database    
+
+To support data persistence, the **SAL database** is loaded as a **Persistent Volume**. A PVC restart is required in the following cases:  
+
+- When the **database schema changes** due to a new SAL update.  
+- When an **issue occurs** (e.g., SQL exception or Hibernate error) that **cannot be resolved** using the persistence endpoints.  
+
+##### **Step 1: Delete the Persistent Volume Claim (PVC)**  
+Run the following command to delete the existing PVC:  
+```sh
+kubectl delete pvc nebulous-sal-mariadb-pvc -n <nebulous-env>
+```
+##### **Step 2: Verify PVC Deletion**  
+Check if the PVC has been successfully deleted:
+```sh
+kubectl get pvc -n <nebulous-env>
+```
+##### **Step 3: Manually Remove Finalizers (If Stuck in Terminating State)**  
+If the PVC remains in a Terminating state, manually edit and remove the finalizer:
+```sh
+kubectl edit pvc nebulous-sal-mariadb-pvc -n <nebulous-env>
+```
+Find the following section and delete it:
+```yaml
+finalizers:
+  - kubernetes.io/pvc-protection
+```
+Then, save and exit the editor.
+##### **Step 4: Restart the SAL Deployment**  
+Once the PVC is deleted, restart the [restart the SAL](https://github.com/ow2-proactive/scheduling-abstraction-layer#332-restarting-sal-as-a-kubernetes-pod) deployment to reinitialize the database.
+##### **Step 5: Confirm PVC Recreation**  
+Check if the PVC has been successfully recreated and bound:
+```sh
+kubectl get pvc -n <nebulous-env>
+```
 
 
 # NebulOuS SAL Deployment (managed by 7Bulls)
 NebulOuS SAL is deployed with a chart managed at https://github.com/eu-nebulous/helm-charts/tree/main/charts/nebulous-sal
-NebulOuS SAL original deployment script can be found at https://github.com/ow2-proactive/scheduling-abstraction-layer/tree/master/deployment
+In case there is a change requested create PR.
 
-Please bare in mind that the values in the helm chart can be overwritten in the nrec deployment definition:
+Values in the helm chart can be overwritten in the nrec deployment definition for different environments:
 
 cd environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-cd/helm-releases/specific-patches/nebulous-sal.yaml
 
