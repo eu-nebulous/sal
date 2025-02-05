@@ -230,12 +230,12 @@ This endpoint allows you to deregister one or more cloud infrastructures and und
 ### 10. SAL Persistance (for developers and project mentors)
 SAL supports the clean operations for clusters, clouds, edge devices and the SAL database. These are to be used for maintainance puposes and by NebulOuS developers to assure that all the resources were undeployed and removed properly, not just from SAL, but as well from the ProActive server and cloud provieders. 
 #####  10.1. [CleanAll endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#01---clean-all-endpoint) 
-#####  10.1. [CleanAll Clusters endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#02---clean-all-clusters-endpoint) 
-#####  10.1. [CleanAll Clouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#03---clean-all-clouds-endpoint) 
-#####  10.1. [CleanAll Edges endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#04---clean-all-edge-devices-endpoint) 
-#####  10.1. [Clean SAL Database endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#05---clean-sal-database-endpoint) 
+#####  10.2. [CleanAll Clusters endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#02---clean-all-clusters-endpoint) 
+#####  10.3. [CleanAll Clouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#03---clean-all-clouds-endpoint) 
+#####  10.4. [CleanAll Edges endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#04---clean-all-edge-devices-endpoint) 
+#####  10.5. [Clean SAL Database endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#05---clean-sal-database-endpoint) 
 
-#### 10.1. Restarting the SAL Database    
+#### Restarting the SAL Database    
 
 To support data persistence, the **SAL database** is loaded as a **Persistent Volume**. A PVC restart is required in the following cases:  
 
