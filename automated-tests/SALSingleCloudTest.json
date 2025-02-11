@@ -1,0 +1,2423 @@
+{
+	"info": {
+		"_postman_id": "b297e1d5-880d-4f65-baab-9a76fcbc64c8",
+		"name": "SALSingleCloudTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32715140"
+	},
+	"item": [
+		{
+			"name": "Connect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Extract session ID from response if connection and status are valid\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    try {\r",
+							"        let response = pm.response.text().trim(); // Use pm.response.text() to get response body as text\r",
+							"        console.log(\"Raw Response:\", response); // Debugging raw response\r",
+							"\r",
+							"        // Check if the response contains a valid session ID\r",
+							"        if (response.length > 20) { // Adjust this check based on expected length or pattern\r",
+							"            pm.environment.set(\"sessionId\", response);\r",
+							"            console.log(\"Session ID set to environment:\", response); // Debugging session ID assignment\r",
+							"        } else {\r",
+							"            pm.environment.set(\"shouldContinue\", false); // Mark shouldContinue as false if session ID is invalid\r",
+							"            throw new Error(\"Session ID not found or invalid in the response!\");\r",
+							"        }\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"} else {\r",
+							"    console.log(\"Skipping session ID extraction as shouldContinue is false.\");\r",
+							"}\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"AddCloud\"); // Explicitly set the next request to AddCloud\r",
+							"    console.log(\"Proceeding with the default next request: AddCloud.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(null); // Halt further requests\r",
+							"    console.log(\"Execution stopped due to failure in the previous steps.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{myLogin}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{myPassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/pagateway/connect",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"pagateway",
+						"connect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddCloud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"GetAllClouds\");\r",
+							"    console.log(\"Next request set to GetAllClouds.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\");\r",
+							"    console.log(\"Next request set to RemoveClouds due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"cloudId\": \"{{cloud_name}}\"\n        //TODO: fill in here the add cloud call\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cloud"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllClouds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"isAnyAsyncNodeCandidatesProcessesInProgress\");\r",
+							"    console.log(\"Next request set to isAnyAsyncNodeCandidatesProcessesInProgress.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\");\r",
+							"    console.log(\"Next request set to RemoveClouds due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cloud"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "isAnyAsyncNodeCandidatesProcessesInProgress",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Post-request script for checking async node process status\r",
+							"let response = pm.response.text().trim(); // Get the response text (string)\r",
+							"let retryCount = pm.environment.get(\"retryCount\") || 0;\r",
+							"let maxRetries = 10;\r",
+							"\r",
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Check if the response is \"true\" (still processing) and retry\r",
+							"if (response === \"true\" && retryCount < maxRetries) {\r",
+							"    pm.environment.set(\"retryCount\", ++retryCount); // Increment retry count\r",
+							"    console.log(`Retry attempt ${retryCount}...`);\r",
+							"    setTimeout(() => {\r",
+							"        pm.environment.set(\"isAnyAsyncNodeCandidatesProcessesInProgress\"); // Retry\r",
+							"    }, 2000); // Retry after 2 seconds\r",
+							"} else if (retryCount >= maxRetries) {\r",
+							"    console.error(\"Max retries reached. Stopping...\");\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\"); // Proceed to RemoveClouds after max retries\r",
+							"} else {\r",
+							"    console.log(\"Cloud node sync completed.\");\r",
+							"    pm.environment.unset(\"retryCount\"); // Reset retry count when done\r",
+							"    // Set next request\r",
+							"    pm.execution.setNextRequest(\"GetCloudImages\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 1 * 60 * 1000; // 1 minutes\r",
+							"\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"let delayStart = pm.environment.get(\"delayStart\");\r",
+							"let retryCount = pm.environment.get(\"retryCount\") || 0;\r",
+							"let currentTime = new Date().getTime(); // Current timestamp\r",
+							"\r",
+							"// If the previous request failed (shouldContinue is false), go directly to RemoveClouds\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\"); // Skip to RemoveClouds if previous failed\r",
+							"} else if (!delayStart) {\r",
+							"    // If this is the first call (delayStart is not set), set the delay to delayDuration\r",
+							"    pm.environment.set(\"delayStart\", currentTime);\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"isAnyAsyncNodeCandidatesProcessesInProgress\"); // Delay first call\r",
+							"    }, delayDuration); \r",
+							"    console.log(\"Delay completed or first-time execution. Proceeding with the request.\");\r",
+							"} else {\r",
+							"    // If it's a retry, set the delay to 30 seconds\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"isAnyAsyncNodeCandidatesProcessesInProgress\"); // Retry with 30-second delay\r",
+							"    }, 30000); // 30-second delay for subsequent retries\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/async",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cloud",
+						"async"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCloudImages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"GetCloudLocation\");\r",
+							"    console.log(\"Next request set to GetCloudLocation.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\");\r",
+							"    console.log(\"Next request set to RemoveClouds due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/images?cloudid={{cloud_name}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cloud",
+						"images"
+					],
+					"query": [
+						{
+							"key": "cloudid",
+							"value": "{{cloud_name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCloudLocation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"FindNodeCandidates_master\");\r",
+							"    console.log(\"Next request set to FindNodeCandidates_master.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\");\r",
+							"    console.log(\"Next request set to RemoveClouds due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/location?cloudid={{cloud_name}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cloud",
+						"location"
+					],
+					"query": [
+						{
+							"key": "cloudid",
+							"value": "{{cloud_name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindNodeCandidates_master",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Process response to extract node candidates\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    let response = pm.response.json(); // Parse JSON response\r",
+							"    console.log(\"Raw Response:\", response); // Debugging raw response\r",
+							"\r",
+							"    // Check if the response is an array and contains at least one candidate\r",
+							"    if (Array.isArray(response) && response.length > 0) {\r",
+							"        let firstNodeId = response[0].id; // Extract the id of the first node candidate\r",
+							"        pm.environment.set(\"MasterNodeCandidate\", firstNodeId); // Set it as an environment variable\r",
+							"        console.log(\"MasterNodeCandidate set to:\", firstNodeId); // Debugging node candidate assignment\r",
+							"    } else {\r",
+							"        // If no candidates are found, stop execution\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(\"No node candidates found in the response!\");\r",
+							"        pm.execution.setNextRequest(\"CleanAll\"); // Redirect to CleanAll\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"FindNodeCandidates_worker\");\r",
+							"    console.log(\"Next request set to FindNodeCandidates_worker.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\");\r",
+							"    console.log(\"Next request set to RemoveClouds due to a failure.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    //TODO: adopt nodecanidadate selection criteria to your use case \n    //asking for IASS node type\n    {\n        \"type\": \"NodeTypeRequirement\",\n        \"nodeTypes\": [\"IAAS\"]\n    },\n    //asking for nodes from specific cloud\n    {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"cloud\",\n        \"requirementAttribute\": \"id\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"{{cloud_name}}\"\n    }\n    \n    /*asking for 8GB RAM\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"ram\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"8192\"\n    },\n    */\n    /*asking for 4 cores\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"cores\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"4\"\n    },*/\n    /*asking specific location name\n     {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"location\",\n        \"requirementAttribute\": \"name\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"us-east-1\"\n    }*/\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/nodecandidates",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"nodecandidates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindNodeCandidates_worker",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Process response to extract node candidates\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    let response = pm.response.json(); // Parse JSON response\r",
+							"    console.log(\"Raw Response:\", response); // Debugging raw response\r",
+							"\r",
+							"    // Check if the response is an array and contains at least one candidate\r",
+							"    if (Array.isArray(response) && response.length > 0) {\r",
+							"        let firstNodeId = response[0].id; // Extract the id of the first node candidate\r",
+							"        pm.environment.set(\"WorkerNodeCandidate\", firstNodeId); // Set it as an environment variable\r",
+							"        console.log(\"WorkerNodeCandidate set to:\", firstNodeId); // Debugging node candidate assignment\r",
+							"    } else {\r",
+							"        // If no candidates are found, stop execution\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(\"No node candidates found in the response!\");\r",
+							"        pm.execution.setNextRequest(\"CleanAll\"); // Redirect to CleanAll\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"DefineCluster\");\r",
+							"    console.log(\"Next request set to DefineCluster.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"RemoveClouds\");\r",
+							"    console.log(\"Next request set to RemoveClouds due to a failure.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    //TODO: adopt nodecanidadate selection criteria to your use case\n    {\n        \"type\": \"NodeTypeRequirement\",\n        \"nodeTypes\": [\"IAAS\"]\n    },\n     //asking for nodes from specific cloud\n    {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"cloud\",\n        \"requirementAttribute\": \"id\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"{{cloud_name}}\"\n    }\n    \n    /*asking for 8GB RAM\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"ram\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"8192\"\n    },\n    */\n    /*asking for 4 cores\n        {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"hardware\",\n        \"requirementAttribute\": \"cores\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"4\"\n    },*/\n    /*asking specific location name\n     {\n        \"type\": \"AttributeRequirement\",\n        \"requirementClass\": \"location\",\n        \"requirementAttribute\": \"name\",\n        \"requirementOperator\": \"EQ\",\n        \"value\": \"us-east-1\"\n    }*/\n  \n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/nodecandidates",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"nodecandidates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DefineCluster",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"DeployCluster\");\r",
+							"    console.log(\"Next request set to DeployCluster.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"name\": \"{{cluster_name}}\",\n    \"master-node\": \"{{master_name}}\",\n    \"nodes\": [\n\t{\n\t\t\"nodeName\": \"{{master_name}}\",\n\t\t\"nodeCandidateId\": \"{{MasterNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n\t}\n\n\t,{\n\t\t\"nodeName\": \"{{worker_name}}\",\n\t\t\"nodeCandidateId\": \"{{WorkerNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n\t}\n/*\n    ,{\n\t \t\"nodeName\": \"{{edge_name}}\",\n\t \t\"nodeCandidateId\": \"{{EdgeNodeCandidate}}\",\n\t \t\"cloudId\": \"edge\"\n\t }\n*/\n    ]\n,\n    \"env-var\":{\n        //here add any env variable needed for the cluster with \"ENV_VAR_NAME\":\"test-ENV_VAR_value\"\n        \"APPLICATION_ID\": \"AEtest2024090511testosedge2\",\n        \"BROKER_ADDRESS\": \"158.37.63.86\",\n        \"ACTIVEMQ_HOST\": \"158.37.63.86\",\n        \"BROKER_PORT\": \"32754\",\n        \"ACTIVEMQ_PORT\": \"32754\",\n        \"ONM_IP\": \"158.39.201.249\",\n        \"ONM_URL\": \"https://onm.cd.nebulouscloud.eu\",\n        \"AMPL_LICENSE\": \"dontlookatthis\"\n        \n    }\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeployCluster",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"getCluster\");\r",
+							"    console.log(\"Next request set to getCluster.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCluster",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Post-request script for checking async node process status\r",
+							"let response = pm.response.text().trim(); // Get the response text (string)\r",
+							"let retryCount = pm.environment.get(\"retryCount\") || 0;\r",
+							"let maxRetries = 10;\r",
+							"\r",
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"let responseData = pm.response.json();\r",
+							"\r",
+							"// Log the status value for debugging\r",
+							"console.log(\"Cluster status:\", responseData.status);\r",
+							"\r",
+							"// Check if the status is 'Deployed' and conditionally validate\r",
+							"if (responseData.status === \"Deployed\") {\r",
+							"    console.log(\"Cluster is Deployed.\");\r",
+							"    pm.environment.unset(\"retryCount\"); // Reset retry count when done\r",
+							"    pm.test(\"Validate status is 'Deployed'\", function () {\r",
+							"        pm.expect(responseData.status).to.eql(\"Deployed\"); // Assert success\r",
+							"    });\r",
+							"    // Set next request\r",
+							"    pm.execution.setNextRequest(\"manageApplication-1\");\r",
+							"} else if (retryCount < maxRetries) {\r",
+							"    console.log(`Cluster status is not 'Deployed'. Current status: ${responseData.status}`);\r",
+							"    pm.environment.set(\"retryCount\", ++retryCount); // Increment retry count\r",
+							"    console.log(`Retry attempt ${retryCount}...`);\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"getCluster\"); // Retry\r",
+							"    }, 2000); // Retry after 2 seconds\r",
+							"} else {\r",
+							"    console.error(\"Max retries reached. Stopping...\");\r",
+							"    pm.test(\"Validate status is 'Deployed'\", function () {\r",
+							"        pm.expect(responseData.status).to.eql(\"Deployed\"); // Fail only after max retries\r",
+							"    });\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\"); // Proceed to deleteCluster after max retries\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 2 * 60 * 1000; // 2 minutes\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the getCluster request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"getCluster\");\r",
+							"        console.log(\"Delay completed. Proceeding with getCluster.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manageApplication-1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"ScaleOut\");\r",
+							"    console.log(\"Next request set to ScaleOut.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"appFile\" : \"---\\napiVersion: \\\"core.oam.dev/v1beta1\\\"\\nkind: \\\"Application\\\"\\nmetadata:\\n  name: \\\"dummy-app-deploy\\\"\\nspec:\\n  components:\\n  - name: \\\"dummy-app-worker\\\"\\n    type: \\\"webservice\\\"\\n    properties:\\n      cpu: \\\"2.0\\\"\\n      memory: \\\"2048Mi\\\"\\n      image: \\\"docker.io/rsprat/mytestrepo:v1\\\"\\n      imagePullPolicy: \\\"Always\\\"\\n      cmd:\\n      - \\\"python\\\"\\n      - \\\"worker.py\\\"\\n      env:\\n      - name: \\\"mqtt_ip\\\"\\n        value: \\\"broker.hivemq.com\\\"\\n      - name: \\\"mqtt_port\\\"\\n        value: \\\"1883\\\"\\n      - name: \\\"mqtt_subscribe_topic\\\"\\n        value: \\\"$share/workers/neb/test/input\\\"\\n      - name: \\\"nebulous_ems_ip\\\"\\n        valueFrom:\\n          fieldRef:\\n            fieldPath: \\\"status.hostIP\\\"\\n      - name: \\\"nebulous_ems_port\\\"\\n        value: \\\"61610\\\"\\n      - name: \\\"nebulous_ems_user\\\"\\n        value: \\\"aaa\\\"\\n      - name: \\\"nebulous_ems_password\\\"\\n        value: \\\"111\\\"\\n      - name: \\\"nebulous_ems_metrics_topic\\\"\\n        value: \\\"realtime.job_process_time_instance\\\"\\n    traits:\\n    - type: \\\"scaler\\\"\\n      properties:\\n        replicas: 1\\n  policies:\\n  - name: \\\"target-default\\\"\\n    type: \\\"topology\\\"\\n    properties:\\n      namespace: \\\"default\\\"\\n  workflow:\\n    steps:\\n    - name: \\\"deploy2default\\\"\\n      type: \\\"deploy\\\"\\n      properties:\\n        policies:\\n        - \\\"target-default\\\"\\n\",\n  \"packageManager\" : \"kubevela\", //or you can use kubectl\n  \"appName\" : \"{{app_name}}\",\n  \"action\" : \"apply\",\n  \"flags\" : \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/app",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ScaleOut",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 0.5 * 60 * 1000; // 30s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the ScaleOut request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"ScaleOut\");\r",
+							"        console.log(\"Delay completed. Proceeding with ScaleOut.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"getCluster2\");\r",
+							"    console.log(\"Next request set to getCluster2.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[ {\n//scale out using same WorkerNodeCandidate and introducing the new node name\n  \t\t\"nodeName\": \"{{worker2_name}}\",\n\t\t\"nodeCandidateId\": \"{{WorkerNodeCandidate}}\",\n\t\t\"cloudId\": \"{{cloud_name}}\"\n\n} ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/scaleout",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"scaleout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCluster2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Post-request script for checking async node process status\r",
+							"let response = pm.response.text().trim(); // Get the response text (string)\r",
+							"let retryCount = pm.environment.get(\"retryCount\") || 0;\r",
+							"let maxRetries = 10;\r",
+							"\r",
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"let responseData = pm.response.json();\r",
+							"\r",
+							"// Log the status value for debugging\r",
+							"console.log(\"Cluster status:\", responseData.status);\r",
+							"\r",
+							"// Check if the status is 'Deployed' and conditionally validate\r",
+							"if (responseData.status === \"Deployed\") {\r",
+							"    console.log(\"Cluster is Deployed.\");\r",
+							"    pm.environment.unset(\"retryCount\"); // Reset retry count when done\r",
+							"    pm.test(\"Validate status is 'Deployed'\", function () {\r",
+							"        pm.expect(responseData.status).to.eql(\"Deployed\"); // Assert success\r",
+							"    });\r",
+							"    // Set next request\r",
+							"    pm.execution.setNextRequest(\"labelNodes[scaleOut]\");\r",
+							"} else if (retryCount < maxRetries) {\r",
+							"    console.log(`Cluster status is not 'Deployed'. Current status: ${responseData.status}`);\r",
+							"    pm.environment.set(\"retryCount\", ++retryCount); // Increment retry count\r",
+							"    console.log(`Retry attempt ${retryCount}...`);\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"getCluster2\"); // Retry\r",
+							"    }, 2000); // Retry after 2 seconds\r",
+							"} else {\r",
+							"    console.error(\"Max retries reached. Stopping...\");\r",
+							"    pm.test(\"Validate status is 'Deployed'\", function () {\r",
+							"        pm.expect(responseData.status).to.eql(\"Deployed\"); // Fail only after max retries\r",
+							"    });\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\"); // Proceed to deleteCluster after max retries\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 2 * 60 * 1000; // 2 minutes\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the getCluster2 request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"getCluster2\");\r",
+							"        console.log(\"Delay completed. Proceeding with getCluster2.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "labelNodes[scaleOut]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"manageApplication-2\");\r",
+							"    console.log(\"Next request set to manageApplication-2.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n//the existing worker is already correctly labeled so we don’t relabel it \n{\"{{worker2_name}}\":\"nebulouscloud.eu/dummy-app-worker=yes\"}\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/label",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"label"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manageApplication-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"labelNodes[scaleIn]\");\r",
+							"    console.log(\"Next request set to labelNodes[scaleIn].\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 0.5 * 60 * 1000; // 30s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the manageApplication-2 request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"manageApplication-2\");\r",
+							"        console.log(\"Delay completed. Proceeding with manageApplication-2.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"appFile\" : \"---\\napiVersion: \\\"core.oam.dev/v1beta1\\\"\\nkind: \\\"Application\\\"\\nmetadata:\\n  name: \\\"dummy-app-deploy\\\"\\nspec:\\n  components:\\n  - name: \\\"dummy-app-worker\\\"\\n    type: \\\"webservice\\\"\\n    properties:\\n      cpu: \\\"2.0\\\"\\n      memory: \\\"2048Mi\\\"\\n      image: \\\"docker.io/rsprat/mytestrepo:v1\\\"\\n      imagePullPolicy: \\\"Always\\\"\\n      cmd:\\n      - \\\"python\\\"\\n      - \\\"worker.py\\\"\\n      env:\\n      - name: \\\"mqtt_ip\\\"\\n        value: \\\"broker.hivemq.com\\\"\\n      - name: \\\"mqtt_port\\\"\\n        value: \\\"1883\\\"\\n      - name: \\\"mqtt_subscribe_topic\\\"\\n        value: \\\"$share/workers/neb/test/input\\\"\\n      - name: \\\"nebulous_ems_ip\\\"\\n        valueFrom:\\n          fieldRef:\\n            fieldPath: \\\"status.hostIP\\\"\\n      - name: \\\"nebulous_ems_port\\\"\\n        value: \\\"61610\\\"\\n      - name: \\\"nebulous_ems_user\\\"\\n        value: \\\"aaa\\\"\\n      - name: \\\"nebulous_ems_password\\\"\\n        value: \\\"111\\\"\\n      - name: \\\"nebulous_ems_metrics_topic\\\"\\n        value: \\\"realtime.job_process_time_instance\\\"\\n    traits:\\n    - type: \\\"scaler\\\"\\n      properties:\\n        replicas: 2\\n  policies:\\n  - name: \\\"target-default\\\"\\n    type: \\\"topology\\\"\\n    properties:\\n      namespace: \\\"default\\\"\\n  workflow:\\n    steps:\\n    - name: \\\"deploy2default\\\"\\n      type: \\\"deploy\\\"\\n      properties:\\n        policies:\\n        - \\\"target-default\\\"\\n\",\n  \"packageManager\" : \"kubevela\", //or you can use kubectl\n  \"appName\" : \"{{app_name}}\",\n  \"action\" : \"apply\",\n  \"flags\" : \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/app",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "labelNodes[scaleIn]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 0.5 * 60 * 1000; // 30s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"labelNodes[scaleIn]\");\r",
+							"        console.log(\"Delay completed. Proceeding with labelNodes[scaleIn].\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"manageApplication-1-2\");\r",
+							"    console.log(\"Next request set to manageApplication-1-2.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n// removing the label from original node\n{\"{{worker_name}}\":\"nebulouscloud.eu/dummy-app-worker=no\"}\n//{\"{{worker2_name}}\":\"nebulouscloud.eu/dummy-app-worker=no\"}\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/label",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"label"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manageApplication-1-2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 0.5 * 60 * 1000; // 30s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the manageApplication-1-2 request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"manageApplication-1-2\");\r",
+							"        console.log(\"Delay completed. Proceeding with manageApplication-1-2.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"ScaleIn\");\r",
+							"    console.log(\"Next request set to ScaleIn.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"appFile\" : \"---\\napiVersion: \\\"core.oam.dev/v1beta1\\\"\\nkind: \\\"Application\\\"\\nmetadata:\\n  name: \\\"dummy-app-deploy\\\"\\nspec:\\n  components:\\n  - name: \\\"dummy-app-worker\\\"\\n    type: \\\"webservice\\\"\\n    properties:\\n      cpu: \\\"2.0\\\"\\n      memory: \\\"2048Mi\\\"\\n      image: \\\"docker.io/rsprat/mytestrepo:v1\\\"\\n      imagePullPolicy: \\\"Always\\\"\\n      cmd:\\n      - \\\"python\\\"\\n      - \\\"worker.py\\\"\\n      env:\\n      - name: \\\"mqtt_ip\\\"\\n        value: \\\"broker.hivemq.com\\\"\\n      - name: \\\"mqtt_port\\\"\\n        value: \\\"1883\\\"\\n      - name: \\\"mqtt_subscribe_topic\\\"\\n        value: \\\"$share/workers/neb/test/input\\\"\\n      - name: \\\"nebulous_ems_ip\\\"\\n        valueFrom:\\n          fieldRef:\\n            fieldPath: \\\"status.hostIP\\\"\\n      - name: \\\"nebulous_ems_port\\\"\\n        value: \\\"61610\\\"\\n      - name: \\\"nebulous_ems_user\\\"\\n        value: \\\"aaa\\\"\\n      - name: \\\"nebulous_ems_password\\\"\\n        value: \\\"111\\\"\\n      - name: \\\"nebulous_ems_metrics_topic\\\"\\n        value: \\\"realtime.job_process_time_instance\\\"\\n    traits:\\n    - type: \\\"scaler\\\"\\n      properties:\\n        replicas: 1\\n  policies:\\n  - name: \\\"target-default\\\"\\n    type: \\\"topology\\\"\\n    properties:\\n      namespace: \\\"default\\\"\\n  workflow:\\n    steps:\\n    - name: \\\"deploy2default\\\"\\n      type: \\\"deploy\\\"\\n      properties:\\n        policies:\\n        - \\\"target-default\\\"\\n\",\n  \"packageManager\" : \"kubevela\", //or you can use kubectl\n  \"appName\" : \"{{app_name}}\",\n  \"action\" : \"apply\",\n  \"flags\" : \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/app",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ScaleIn",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 0.5 * 60 * 1000; // 30s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the ScaleIn request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"ScaleIn\");\r",
+							"        console.log(\"Delay completed. Proceeding with ScaleIn.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"labelNodes[scaleIn]2\");\r",
+							"    console.log(\"Next request set to labelNodes[scaleIn]2.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"{{worker_name}}\"\n    //\"{{worker2_name}}\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/scalein",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"scalein"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "labelNodes[scaleIn]2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 1 * 60 * 1000; // 60s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"labelNodes[scaleIn]2\");\r",
+							"        console.log(\"Delay completed. Proceeding with labelNodes[scaleIn]2.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"manageApplication0\");\r",
+							"    console.log(\"Next request set to manageApplication0.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n// removing the label from original node\n//{\"{{worker_name}}\":\"nebulouscloud.eu/dummy-app-worker=no\"}\n{\"{{worker2_name}}\":\"nebulouscloud.eu/dummy-app-worker=no\"}\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/label",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"label"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manageApplication0",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 0.5 * 60 * 1000; // 30s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the manageApplication-1-2 request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"manageApplication0\");\r",
+							"        console.log(\"Delay completed. Proceeding with manageApplication0.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"ScaleIn2\");\r",
+							"    console.log(\"Next request set to ScaleIn2.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"appFile\" : \"---\\napiVersion: \\\"core.oam.dev/v1beta1\\\"\\nkind: \\\"Application\\\"\\nmetadata:\\n  name: \\\"dummy-app-deploy\\\"\\nspec:\\n  components:\\n  - name: \\\"dummy-app-worker\\\"\\n    type: \\\"webservice\\\"\\n    properties:\\n      cpu: \\\"2.0\\\"\\n      memory: \\\"2048Mi\\\"\\n      image: \\\"docker.io/rsprat/mytestrepo:v1\\\"\\n      imagePullPolicy: \\\"Always\\\"\\n      cmd:\\n      - \\\"python\\\"\\n      - \\\"worker.py\\\"\\n      env:\\n      - name: \\\"mqtt_ip\\\"\\n        value: \\\"broker.hivemq.com\\\"\\n      - name: \\\"mqtt_port\\\"\\n        value: \\\"1883\\\"\\n      - name: \\\"mqtt_subscribe_topic\\\"\\n        value: \\\"$share/workers/neb/test/input\\\"\\n      - name: \\\"nebulous_ems_ip\\\"\\n        valueFrom:\\n          fieldRef:\\n            fieldPath: \\\"status.hostIP\\\"\\n      - name: \\\"nebulous_ems_port\\\"\\n        value: \\\"61610\\\"\\n      - name: \\\"nebulous_ems_user\\\"\\n        value: \\\"aaa\\\"\\n      - name: \\\"nebulous_ems_password\\\"\\n        value: \\\"111\\\"\\n      - name: \\\"nebulous_ems_metrics_topic\\\"\\n        value: \\\"realtime.job_process_time_instance\\\"\\n    traits:\\n    - type: \\\"scaler\\\"\\n      properties:\\n        replicas: 1\\n  policies:\\n  - name: \\\"target-default\\\"\\n    type: \\\"topology\\\"\\n    properties:\\n      namespace: \\\"default\\\"\\n  workflow:\\n    steps:\\n    - name: \\\"deploy2default\\\"\\n      type: \\\"deploy\\\"\\n      properties:\\n        policies:\\n        - \\\"target-default\\\"\\n\",\n  \"packageManager\" : \"kubevela\", //or you can use kubectl\n  \"appName\" : \"{{app_name}}\",\n  \"action\" : \"apply\",\n  \"flags\" : \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/app",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ScaleIn2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 0.5 * 60 * 1000; // 30s\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the ScaleIn request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"ScaleIn\");\r",
+							"        console.log(\"Delay completed. Proceeding with ScaleIn.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Conditionally set the next request based on shouldContinue\r",
+							"if (pm.environment.get(\"shouldContinue\")) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster.\");\r",
+							"} else {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Next request set to deleteCluster due to a failure.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    //\"{{worker_name}}\"\n    \"{{worker2_name}}\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}/scalein",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}",
+						"scalein"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCluster",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set default next request to RemoveClouds\r",
+							"pm.execution.setNextRequest(\"RemoveClouds\");\r",
+							"\r",
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the delay duration (in milliseconds)\r",
+							"const delayDuration = 2 * 60 * 1000; // 2min\r",
+							"\r",
+							"// Get the shouldContinue flag to determine whether to proceed\r",
+							"let shouldContinue = pm.environment.get(\"shouldContinue\");\r",
+							"\r",
+							"// If the previous request failed, go directly to deleteCluster\r",
+							"if (!shouldContinue) {\r",
+							"    pm.execution.setNextRequest(\"deleteCluster\");\r",
+							"    console.log(\"Execution redirected to deleteCluster due to a failure in the previous steps.\");\r",
+							"} else {\r",
+							"    // Delay before executing the ScaleIn request\r",
+							"    setTimeout(() => {\r",
+							"        pm.execution.setNextRequest(\"ScaleIn\");\r",
+							"        console.log(\"Delay completed. Proceeding with ScaleIn.\");\r",
+							"    }, delayDuration);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cluster/{{cluster_name}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cluster",
+						"{{cluster_name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveClouds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate response and status code\r",
+							"pm.test(\"Validate response and status code\", function () {\r",
+							"    let shouldContinue = true;\r",
+							"\r",
+							"    try {\r",
+							"        // Check if response is undefined or connection was refused\r",
+							"        if (!pm.response || pm.response.code === \"ECONNREFUSED\") {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(\"Connection refused!\");\r",
+							"        }\r",
+							"\r",
+							"        // Check for valid status codes (200, 201, 202) or the status text \"OK\"\r",
+							"        if (!pm.expect(pm.response.code).to.be.oneOf([200, \"OK\", 201, 202])) {\r",
+							"            shouldContinue = false;\r",
+							"            throw new Error(`Invalid status code: ${pm.response.code}`);\r",
+							"        }\r",
+							"\r",
+							"        // If we reach this point, the status code is valid\r",
+							"        pm.environment.set(\"shouldContinue\", true);\r",
+							"        console.log(\"Response Status Code:\", pm.response.code); // Debugging status code\r",
+							"    } catch (err) {\r",
+							"        pm.environment.set(\"shouldContinue\", false);\r",
+							"        console.error(err.message);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "sessionid",
+						"value": "{{sessionId}}"
+					},
+					{
+						"key": "preempt",
+						"value": "true"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n   // \"c9a625c7-f705-4128-948f-6b5765509029\"\n   \"{{cloud_name}}\"\n   // \"aws-tid-ae\"\n  // , \"aws-AE-min\"\n //\"aws-ae\"\n //\"azureAE\"\n   //\"aws-robert\"\n  // \"ankica-os\"\n  // \"os-rudi\"\n    //another clouds to be removed\n  // \"aws-tid-72\"\n   \n    \n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/remove",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{sal_host}}"
+					],
+					"port": "{{sal_port}}",
+					"path": [
+						"sal",
+						"cloud",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

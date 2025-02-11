@@ -1,0 +1,123 @@
+{
+	"id": "8a20ef62-f678-4c94-b733-1c56d5f72525",
+	"name": "SAL_NebulOuS_CD",
+	"values": [
+		{
+			"key": "sessionId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "MasterNodeCandidate",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "WorkerNodeCandidate",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "EdgeNodeCandidate",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "EdgeNodeID",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "JobName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "cloud_name",
+			"value": "cloud",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "master_name",
+			"value": "master",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "worker_name",
+			"value": "worker",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "worker2_name",
+			"value": "worker2",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "cluster_name",
+			"value": "cluster",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "edge_name",
+			"value": "edge",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "app_name",
+			"value": "app",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "protocol",
+			"value": "http",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sal_host",
+			"value": "localhost",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sal_port",
+			"value": "8088",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "myLogin",
+			"value": "cd",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "myPassword",
+			"value": "5rf0A@sj01=",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "shouldContinue",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-02-11T15:37:42.937Z",
+	"_postman_exported_using": "Postman/11.31.1"
+}
