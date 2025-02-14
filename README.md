@@ -19,6 +19,7 @@
 Deployment Manager, i.e. Scheduling Abstraction Layer (SAL) is an abstraction layer initially developed as part of the EU project Morphemic by [Activeeon](https://www.activeeon.com/). Its development continued through the NebulOuS EU project. SAL aims to enhance the usability of Execution Adapter, i.e. [ProActive Scheduler & Resource Manager](https://doc.activeeon.com/latest/), by providing abstraction, making it easier for users to interact with the scheduler and take advantage of its features. Seamlessly supporting REST calls and direct communication with the Execution Adapter SAL empowers users to harness the scheduler's capabilities. 
 
 SAL Code repository and documentation can be found [here](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/README.md).
+Information on how to obtain the ProActive licence with installation instructions can be found [here](https://github.com/eu-nebulous/nebulous/wiki/1.1-Installation-Walk%E2%80%90trough-for-Development-&-Evaluation#proactive-scheduler)
 
 # Report Issue
 In a case of issue, please create the bug error report [here](https://github.com/eu-nebulous/sal/issues). 
