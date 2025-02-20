@@ -681,6 +681,39 @@
 			"description": "[https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md)"
 		},
 		{
+			"name": "5. Job",
+			"item": [
+				{
+					"name": "5.6. GetJobPAState",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sessionid",
+								"value": "{{sessionId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/job/{{jobId}}/PAstatus",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{sal_host}}"
+							],
+							"port": "{{sal_port}}",
+							"path": [
+								"sal",
+								"job",
+								"{{jobId}}",
+								"PAstatus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "7. Node",
 			"item": [
 				{
