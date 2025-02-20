@@ -12,7 +12,7 @@
 	- [7. Cluster reconfiguration](https://github.com/eu-nebulous/sal/blob/main/README.md#7-cluster-reconfiguration)
 	- [8. Edge device deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#8-edge-device-deregistration)
 	- [9. Cloud deregistration](https://github.com/eu-nebulous/sal/blob/main/README.md#9-cloud-deregistration)
- 	- [10. SAL Persistance for developers](https://github.com/eu-nebulous/sal#10-sal-persistance-for-developers-and-project-mentors)	
+ 	- [10. SAL Persistence for developers](https://github.com/eu-nebulous/sal#10-sal-persistance-for-developers-and-project-mentors)	
 - [NebulOuS SAL Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#nebulous-sal-deployment-managed-by-7bulls)
 
 # Introduction
@@ -63,7 +63,7 @@ For more information on setting up cloud providers for NebulOuS, refer to the [M
 
 Additionally, while the infrastructure may appear registered, this does not guarantee the correctness of the configured cloud infrastructure. Once registration is complete, an asynchronous process begins to retrieve images and node candidates, and provided authentication can be validated if it is correctly configured (see how isAnyAsyncNodeCandidatesProcessesInProgress and GetCloudImages endpoints can be used for validation). Note that SSH credentials are only utilized during [Cluster Deployment](https://github.com/eu-nebulous/sal/blob/main/README.md#5-cluster-deployment).
 
-Finnaly, keep in mind that the cloud should be properly deregistered using [Remove Clouds](https://github.com/eu-nebulous/sal#91-removeclouds-endpoint) endpoint, so that the used nodes are undeployed from cloud provider, and there are no 'hanging' clouds left inside of the ProActive server which can cause unexpected behaviour especially in a case the same cloud name is used.
+Finally, keep in mind that the cloud should be properly deregistered using [Remove Clouds](https://github.com/eu-nebulous/sal#91-removeclouds-endpoint) endpoint, so that the used nodes are undeployed from cloud provider, and there are no 'hanging' clouds left inside of the ProActive server which can cause unexpected behaviour especially in a case the same cloud name is used.
 
 #####  2.2. [isAnyAsyncNodeCandidatesProcessesInProgress endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md) - Checking for ongoing asynchronous processes for retrieving cloud images or node candidates.
 You should wait until this process returns `false`, indicating that the retrieval of cloud images and node candidates from the cloud provider is complete.
@@ -155,7 +155,7 @@ Example of Searching for a Node Candidate Representing an `EDGE` Device:
     }
 ]
 ```
-Note that for the `EDGE` devices, their node candidate ID is returned during registration. In a case you target a specific edge device it is to store it during the registration process, or to introduce the unique identifiyer into device name which can be search then using attribute requirement `name` in `hardware` class. 
+Note that for the `EDGE` devices, their node candidate ID is returned during registration. In a case you target a specific edge device it is to store it during the registration process, or to introduce the unique identifier into device name which can be search then using attribute requirement `name` in `hardware` class. 
 
 #####  4.2. [getLengthOfNodeCandidates endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/7-node-endpoints.md#72--getlengthofnodecandidates-endpoint) -  Returns total number of existing node candidates.
 
@@ -189,7 +189,7 @@ This endpoint enables the deletion of an existing Kubernetes cluster deployment.
 #####  6.1. [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint) - Managing application deployment.
 This endpoint is used to deploy and manage applications within a specified Kubernetes cluster. It supports both the initial deployment of applications and the reconfiguration of application replicas, allowing you to adjust the number of replicas as needed for scaling and performance optimization. Setting the number of replicas to 0 will effectively undeploy the application.
 
-Additionally, the status of a execution for deployed application can be checked using the [getJobState endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/5-job-endpoints.md#56--getjobstate-endpoint).
+Additionally, the status of an execution for deployed application can be checked using the [getJobState endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/5-job-endpoints.md#56--getjobstate-endpoint).
 
 ### 7. Cluster reconfiguration
 
@@ -202,7 +202,7 @@ This endpoint allows you to scale in the Kubernetes cluster by removing specifie
 #####  7.3. [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint) - Managing Node Labels
 This endpoint allows you to manage node labels within a Kubernetes cluster, enabling you to add, modify, or remove labels on specific nodes. Use this feature to organize and categorize nodes effectively, which can aid in scheduling, resource management, and targeting specific nodes for workloads.
 
-Additionally, the status of a execution for node labeling can be checked using the [getJobState endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/5-job-endpoints.md#56--getjobstate-endpoint).
+Additionally, the status of an execution for node labeling can be checked using the [getJobState endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/5-job-endpoints.md#56--getjobstate-endpoint).
 
 #### Scaling Out the application
 To scale out an application, follow these steps:
@@ -225,15 +225,15 @@ To scale in an application, follow these steps:
 ### 8. Edge device deregistration
 
 #####  8.1. [DeleteEdgeNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/4-edge-endpoints.md#44--deleteedgenode-endpoint)
-This endpoint is used to deregister edge device using it's ID which is returned during (registration process)[https://github.com/eu-nebulous/sal/#3-edge-device-registration] and can be retrived by using GetEdgeNodes endpoint. 
+This endpoint is used to deregister edge device using its ID which is returned during (registration process)[https://github.com/eu-nebulous/sal/#3-edge-device-registration] and can be retrived by using GetEdgeNodes endpoint. 
 
 ### 9. Cloud deregistration
 
 #####  9.1. [RemoveClouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/2-cloud-endpoints.md#27--removeclouds-endpoint)
 This endpoint allows you to deregister one or more cloud infrastructures and undeploy its nodes from the cloud provider. 
 
-### 10. SAL Persistance (for developers and project mentors)
-SAL supports the clean operations for clusters, clouds, edge devices and the SAL database. These are to be used for maintainance puposes and by NebulOuS developers to assure that all the resources were undeployed and removed properly, not just from SAL, but as well from the ProActive server and cloud provieders. 
+### 10. SAL Persistence (for developers and project mentors)
+SAL supports the clean operations for clusters, clouds, edge devices and the SAL database. These are to be used for maintenance purposes and by NebulOuS developers to assure that all the resources were undeployed and removed properly, not just from SAL, but as well from the ProActive server and cloud providers. 
 #####  10.1. [CleanAll endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#01---clean-all-endpoint) 
 #####  10.2. [CleanAll Clusters endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#02---clean-all-clusters-endpoint) 
 #####  10.3. [CleanAll Clouds endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/0-persistence-endpoints.md#03---clean-all-clouds-endpoint) 
@@ -269,7 +269,7 @@ finalizers:
 ```
 Then, save and exit the editor.
 ##### **Step 4: Restart the SAL Deployment**  
-Once the PVC is deleted, restart the [restart the SAL](https://github.com/ow2-proactive/scheduling-abstraction-layer#332-restarting-sal-as-a-kubernetes-pod) deployment to reinitialize the database.
+Once the PVC is deleted, [restart the SAL](https://github.com/ow2-proactive/scheduling-abstraction-layer#332-restarting-sal-as-a-kubernetes-pod) deployment to reinitialize the database.
 ##### **Step 5: Confirm PVC Recreation**  
 Check if the PVC has been successfully recreated and bound:
 ```sh
@@ -281,7 +281,7 @@ kubectl get pvc -n <nebulous-env>
 NebulOuS SAL is deployed with a chart managed at https://github.com/eu-nebulous/helm-charts/tree/main/charts/nebulous-sal
 In case there is a change requested create PR.
 
-Values in the helm chart can be overwritten in the nrec deployment definition for different environments:
+Values in the helm chart can be overwritten in the nerc deployment definition for different environments:
 
 cd environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-cd/helm-releases/specific-patches/nebulous-sal.yaml
 
