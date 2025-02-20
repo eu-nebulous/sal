@@ -187,7 +187,9 @@ This endpoint enables the deletion of an existing Kubernetes cluster deployment.
 ### 6. Application management
 
 #####  6.1. [ManageApplication endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#104--manageapplication-endpoint) - Managing application deployment.
-This endpoint is used to deploy and manage applications within a specified Kubernetes cluster. It supports both the initial deployment of applications and the reconfiguration of application replicas, allowing you to adjust the number of replicas as needed for scaling and performance optimization.
+This endpoint is used to deploy and manage applications within a specified Kubernetes cluster. It supports both the initial deployment of applications and the reconfiguration of application replicas, allowing you to adjust the number of replicas as needed for scaling and performance optimization. Setting the number of replicas to 0 will effectively undeploy the application.
+
+Additionally, the status of a execution for deployed application can be checked using the [getJobState endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/5-job-endpoints.md#56--getjobstate-endpoint).
 
 ### 7. Cluster reconfiguration
 
@@ -199,6 +201,8 @@ This endpoint allows you to scale in the Kubernetes cluster by removing specifie
 
 #####  7.3. [LabelNode endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/10-cluster-endpoints.md#108--labelnode-endpoint) - Managing Node Labels
 This endpoint allows you to manage node labels within a Kubernetes cluster, enabling you to add, modify, or remove labels on specific nodes. Use this feature to organize and categorize nodes effectively, which can aid in scheduling, resource management, and targeting specific nodes for workloads.
+
+Additionally, the status of a execution for node labeling can be checked using the [getJobState endpoint](https://github.com/ow2-proactive/scheduling-abstraction-layer/blob/master/endpoints/5-job-endpoints.md#56--getjobstate-endpoint).
 
 #### Scaling Out the application
 To scale out an application, follow these steps:
