@@ -281,7 +281,7 @@ kubectl get pvc -n <nebulous-env>
 NebulOuS SAL is deployed with a chart managed at https://github.com/eu-nebulous/helm-charts/tree/main/charts/nebulous-sal
 In case there is a change requested create PR.
 
-Values in the helm chart can be overwritten in the nerc deployment definition for different environments:
+Values in the helm chart can be overwritten in the NREC deployment definition for different environments:
 
 cd environment: https://github.com/eu-nebulous/nrec-flux-config/blob/main/clusters/primary/nebulous-cd/helm-releases/specific-patches/nebulous-sal.yaml
 

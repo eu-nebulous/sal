@@ -13,7 +13,7 @@
   - [Running the Test](#running-the-test)
 
 ## Introduction
-SAL automated tests are based on Postman collection and environment files. Please note that the difference between a pure Postman collection to make the calls and one meant for automated testing is that the latter contains pre and post scripts to validate the results and direct the flow of the test.
+SAL automated tests are based on Postman collection and environment files. Please note that the difference between a pure Postman collection to make the calls and one meant for automated testing is that the latter contains pre- and post-scripts to validate the results and direct the flow of the test.
 
 Newman is a command-line tool that allows you to run Postman collections. This guide will walk you through the steps to install and use Newman for running tests.
 
@@ -78,11 +78,26 @@ Currently, we have an automated test for a single cloud NebulOuS deployment and 
 To run tests, it is necessary to edit the provided `.json` templates in Postman or as raw JSON files.
 
 #### Editing the Postman Collection
-First, edit `SALSingleCloudTest.json`, which is a Postman collection containing API endpoints. The key difference between this collection and the one intended for manual execution is that it contains pre and post scripts that validate received results and determine the next step in the automated workflow.
+First, edit `SALSingleCloudTest.json`, which is a Postman collection containing API endpoints. The key difference between this collection and the one intended for manual execution is that it contains pre- and post-scripts that validate received results and determine the next step in the automated workflow.
 
 The following calls need to be updated:
 - Add the `AddCloud` call (currently, it only contains the cloud name bound to an environmental variable).
 - Add any additional criteria for `FindNodeCandidates_master` and `FindNodeCandidates_worker`.
+- In `DefineCluster`, following environment variables are preset for the `nebulous-cd` environment. Ensure that these environment variables are updated to support running tests in targeted test environment.
+```json
+{
+  "APPLICATION_ID": "AEtest2024090511testosedge2",
+  "BROKER_ADDRESS": "158.37.63.86",
+  "ACTIVEMQ_HOST": "158.37.63.86",
+  "BROKER_PORT": "32754",
+  "ACTIVEMQ_PORT": "32754",
+  "ONM_IP": "158.39.201.249",
+  "ONM_URL": "https://onm.cd.nebulouscloud.eu",
+  "AMPL_LICENSE": "dontlookatthis"
+}
+```
+
+
 
 #### Editing the Postman Environment
 Next, edit `SALNebulOuSCDenvironment.json`, which is a preset Postman environment. It is recommended to rename all existing named variables to avoid conflicts if multiple users run tests using the same environment. Additionally, this environment file contains credentials for the Nebulous CD environment. If you intend to run the test in another environment, update the username and password accordingly.
