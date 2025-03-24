@@ -490,7 +490,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/location",
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/location?cloudid={{cloud_name}}",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{sal_host}}"
@@ -504,8 +504,7 @@
 							"query": [
 								{
 									"key": "cloudid",
-									"value": "{{cloud_name}}",
-									"disabled": true
+									"value": "{{cloud_name}}"
 								}
 							]
 						}
@@ -523,7 +522,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/hardware",
+							"raw": "{{protocol}}://{{sal_host}}:{{sal_port}}/sal/cloud/hardware?cloudid={{cloud_name}}",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{sal_host}}"
@@ -537,8 +536,7 @@
 							"query": [
 								{
 									"key": "cloudid",
-									"value": "{{cloud_name}}",
-									"disabled": true
+									"value": "{{cloud_name}}"
 								}
 							]
 						}
