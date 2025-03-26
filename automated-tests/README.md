@@ -86,14 +86,14 @@ The following calls need to be updated:
 - In `DefineCluster`, following environment variables are preset for the `nebulous-cd` environment. Ensure that these environment variables are updated to support running tests in targeted test environment.
 ```json
 {
-  "APPLICATION_ID": "AEtest2024090511testosedge2",
-  "BROKER_ADDRESS": "158.37.63.86",
-  "ACTIVEMQ_HOST": "158.37.63.86",
-  "BROKER_PORT": "32754",
-  "ACTIVEMQ_PORT": "32754",
-  "ONM_IP": "158.39.201.249",
-  "ONM_URL": "https://onm.cd.nebulouscloud.eu",
-  "AMPL_LICENSE": "dontlookatthis"
+  "APPLICATION_ID":"{{ev_appId}}",
+  "BROKER_ADDRESS": "{{ev_brokerHost}}",
+  "ACTIVEMQ_HOST": "{{ev_amqHost}}",
+  "BROKER_PORT": "{{ev_brokerPort}}",
+  "ACTIVEMQ_PORT": "{{ev_amqPort}}}",
+  "ONM_IP": "{{ev_onmIp}}",
+  "ONM_URL": "{{ev_onmUrl}}",
+  "AMPL_LICENSE": "{{ev_ampl}}"
 }
 ```
 
